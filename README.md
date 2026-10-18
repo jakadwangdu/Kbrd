@@ -17,3 +17,4 @@ Edit `app/src/main/assets/keyboard.html` and push to `main`. A new release is bu
 ## Not included yet
 - Native voice typing (needs RECORD_AUDIO and SpeechRecognizer; the web speech API does not exist in Android WebView).
 - Inserting clipboard screenshots into other apps.
+"# Kbrd" 
