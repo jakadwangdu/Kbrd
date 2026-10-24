@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Keymold: a minimalist Android keyboard</title>
+<meta name="description" content="Keymold is a minimalist, premium Android keyboard with a full emoji library, clipboard, number pad and adjustable haptics. Download the APK free.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Keymold","operatingSystem":"Android 8.0+","applicationCategory":"UtilitiesApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"downloadUrl":"https://github.com/jakadwangdu/Kbrd/releases/latest/download/Keymold-debug.apk","author":{"@type":"Person","name":"Shaurya","url":"https://github.com/jakadwangdu"}}</script>
+<script>document.documentElement.classList.add("js")</script>
+<style>
+:root{--bg:#000;--fg:#fff;--mute:#9a9a9a;--line:rgba(255,255,255,.14);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+a{color:inherit}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+section,footer{position:relative;z-index:2}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:calc(14px + env(safe-area-inset-top,0px)) 0 14px;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.s{background:rgba(0,0,0,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:600;letter-spacing:-.02em;text-decoration:none;font-size:18px}
+.links{display:flex;align-items:center;gap:26px;font-size:14px;color:var(--mute)}
+.links a{text-decoration:none;transition:color .2s}.links a:hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-weight:500;font-size:15px;text-decoration:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),background .2s,color .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.p{background:#fff;color:#000}.btn.p:hover{background:#e8e8e8}
+.btn.g{border:1px solid var(--line);color:#fff}.btn.g:hover{border-color:#fff}
+.btn.s{padding:9px 18px;font-size:14px}
+a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.hero{min-height:100svh;display:flex;align-items:center;padding:120px 0 64px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;width:100%}
+.stage{height:min(72vh,600px);pointer-events:none}
+.tag{display:inline-block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:6px 14px;margin-bottom:28px}
+h1{font-size:clamp(48px,8.6vw,124px);line-height:.94;letter-spacing:-.045em;font-weight:500;margin:0 0 26px}
+h1 em,h2 em{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-style:italic;letter-spacing:-.02em}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--mute);max-width:520px;margin:0 0 36px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.fine{font-size:13px;color:var(--mute);margin-top:18px}
+.pad{padding:120px 0}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0 0 18px}
+h2{font-size:clamp(34px,5.2vw,72px);line-height:1;letter-spacing:-.04em;font-weight:500;margin:0 0 56px;max-width:760px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.card{background:var(--bg);padding:34px 30px 38px;min-height:240px;transition:background .35s}
+.card:hover{background:#0d0d0d}
+.n{font-size:12px;letter-spacing:.16em;color:var(--mute);display:block;margin-bottom:46px}
+.card h3{font-size:21px;letter-spacing:-.02em;font-weight:500;margin:0 0 10px}
+.card p{margin:0;color:var(--mute);font-size:15px}
+.soon{display:inline-block;margin-top:14px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:#fff}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.steps li{list-style:none;border-top:1px solid var(--line);padding-top:22px}
+.steps ol{margin:0;padding:0;display:contents}
+.steps b{display:block;font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;font-size:44px;line-height:1;margin-bottom:14px}
+.steps p{margin:0;color:var(--mute)}
+.light{background:#fff;color:#000}
+.light .eyebrow,.light .lead,.light p{color:#4a4a4a}
+.dev{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end}
+.dev h2{margin-bottom:0}
+.dev p{font-size:18px;margin:0 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips a{border:1px solid #000;border-radius:999px;padding:10px 18px;font-size:14px;text-decoration:none;transition:background .2s,color .2s}
+.chips a:hover{background:#000;color:#fff}
+.cta{text-align:center;padding:40px 0 140px}
+.cta .stage{height:min(42vh,380px);margin-bottom:8px}
+.cta h2{margin:0 auto 34px;max-width:none}
+.cta .row{justify-content:center}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--mute);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+.nogl .stage{position:relative}
+.nogl .stage::after{content:"K";position:absolute;inset:12% 18%;display:grid;place-items:center;background:#f2f2f2;color:#000;border-radius:22%;font:600 min(16vw,140px)/1 Inter,sans-serif}
+@media (max-width:900px){.grid{grid-template-columns:1fr 1fr}.dev{grid-template-columns:1fr;gap:28px}.links a:not(.btn){display:none}}
+@media (max-width:820px){.hero .wrap{grid-template-columns:1fr}.stage{height:42vh}.steps{grid-template-columns:1fr;gap:28px}.pad{padding:84px 0}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}.card{min-height:0}.n{margin-bottom:28px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{transition:none;transform:none}.btn{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<nav><div class="wrap">
+  <a class="logo" href="#top">Keymold</a>
+  <div class="links"><a href="#features">Features</a><a href="#install">Install</a><a href="#developer">Developer</a><a class="btn p s" href="https://github.com/jakadwangdu/Kbrd/releases/latest/download/Keymold-debug.apk" target="_blank" rel="noopener">Download</a></div>
+</div></nav>
+
+<section class="hero" id="top"><div class="wrap">
+  <div>
+    <span class="tag rv">Android keyboard</span>
+    <h1 class="rv">Typing,<br><em>refined.</em></h1>
+    <p class="lead rv">A quiet, minimal keyboard with a premium feel. Fast switching, a full emoji library, a real number pad and haptics you can tune to your own hands.</p>
+    <div class="row rv">
+      <a class="btn p" href="https://github.com/jakadwangdu/Kbrd/releases/latest/download/Keymold-debug.apk" target="_blank" rel="noopener">Download APK
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg></a>
+      <a class="btn g" href="https://github.com/jakadwangdu/Kbrd" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+    <p class="fine rv">Free · Android 8.0 and newer · Works offline</p>
+  </div>
+  <div class="stage" data-char="hero" aria-hidden="true"></div>
+</div></section>
+
+<section class="pad" id="features"><div class="wrap">
+  <p class="eyebrow rv">Features</p>
+  <h2 class="rv">Everything you need.<br><em>Nothing you don’t.</em></h2>
+  <div class="grid rv">
+    <div class="card"><span class="n">01</span><h3>Minimal by design</h3><p>Flat matte keys, thin icons and true AMOLED black. Pick from six accent colors, or switch to a light theme.</p></div>
+    <div class="card"><span class="n">02</span><h3>Instant response</h3><p>Keys react the moment you touch them, and switching between letters, emoji and numbers stays smooth.</p></div>
+    <div class="card"><span class="n">03</span><h3>Emoji for everyone</h3><p>Packs for kids, teens, adults and seniors. Scroll through every category or search by name.</p></div>
+    <div class="card"><span class="n">04</span><h3>Clipboard</h3><p>Text you copy is saved automatically, so you can paste it again later with one tap.</p></div>
+    <div class="card"><span class="n">05</span><h3>Number pad and cursor</h3><p>A proper numpad, a comma where you expect it, and a spacebar you can slide to move the cursor.</p></div>
+    <div class="card"><span class="n">06</span><h3>Made to fit</h3><p>Adjust key height, width and position, and set your own haptic strength. Changes reach the keyboard instantly.</p><span class="soon">Voice typing · soon</span></div>
+  </div>
+</div></section>
+
+<section class="pad" id="install" style="padding-top:0"><div class="wrap">
+  <p class="eyebrow rv">Install</p>
+  <h2 class="rv">Three steps.<br><em>Under a minute.</em></h2>
+  <ol class="steps">
+    <li class="rv"><b>1</b><p>Download the APK. Android may warn you, because it comes from outside the Play Store.</p></li>
+    <li class="rv"><b>2</b><p>Open the file and allow installs from your browser, then tap Install.</p></li>
+    <li class="rv"><b>3</b><p>Open Keymold, tap Enable keyboard, turn it on, then choose Keymold as your keyboard.</p></li>
+  </ol>
+</div></section>
+
+<section class="pad light" id="developer"><div class="wrap dev">
+  <div><p class="eyebrow rv">The developer</p><h2 class="rv">Built by <em>Shaurya.</em></h2></div>
+  <div class="rv">
+    <p>A builder and developer working across web and mobile, with a focus on frontend and full-stack. Founder of LanceBuddy and co-founder of FlowRec. Keymold is a small project about getting the everyday details of typing right.</p>
+    <div class="chips"><a href="https://github.com/jakadwangdu" target="_blank" rel="noopener">GitHub</a><a href="https://lancebuddy.in" target="_blank" rel="noopener">LanceBuddy</a><a href="https://flowrec.flowrec-dev.workers.dev" target="_blank" rel="noopener">FlowRec</a></div>
+  </div>
+</div></section>
+
+<section class="cta" id="download"><div class="wrap">
+  <div class="stage" data-char="cta" aria-hidden="true"></div>
+  <h2 class="rv">Get <em>Keymold.</em></h2>
+  <div class="row rv">
+    <a class="btn p" href="https://github.com/jakadwangdu/Kbrd/releases/latest/download/Keymold-debug.apk" target="_blank" rel="noopener">Download APK
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg></a>
+    <a class="btn g" href="https://github.com/jakadwangdu/Kbrd/releases" target="_blank" rel="noopener">All releases</a>
+  </div>
+  <p class="fine rv">This is a debug build for Android 8.0+. The keyboard works fully offline and doesn’t ask for internet access.</p>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 Shaurya</span><span><a href="https://github.com/jakadwangdu/Kbrd" target="_blank" rel="noopener">Source on GitHub</a></span></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(()=>{
+const nav=document.querySelector("nav"),onS=()=>nav.classList.toggle("s",scrollY>20);
+addEventListener("scroll",onS,{passive:true});onS();
+const rv=[...document.querySelectorAll(".rv")];
+if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});rv.forEach(e=>io.observe(e))}else rv.forEach(e=>e.classList.add("in"));
+
+/*BUILD*/
+function rr(w,h,r){const s=new THREE.Shape(),x=-w/2,y=-h/2;s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s}
+function rbox(w,h,d,r,b,mat){const g=new THREE.ExtrudeGeometry(rr(w,h,r),{depth:d,bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:4,curveSegments:10});g.center();return new THREE.Mesh(g,mat)}
+function letter(ch){const c=document.createElement("canvas");c.width=c.height=128;const x=c.getContext("2d");x.fillStyle="#0a0a0a";x.font="600 84px Inter,system-ui,sans-serif";x.textAlign="center";x.textBaseline="middle";x.fillText(ch,64,70);return new THREE.Mesh(new THREE.PlaneGeometry(.34,.34),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true}))}
+function build(){
+  const G=new THREE.Group(),white=new THREE.MeshStandardMaterial({color:0xf2f2f2,roughness:.4,metalness:.04}),black=new THREE.MeshBasicMaterial({color:0x050505}),glow=new THREE.MeshBasicMaterial({color:0xffffff});
+  G.add(rbox(1.7,1.55,.8,.42,.12,white));
+  const f=.52,face=new THREE.Mesh(new THREE.ShapeGeometry(rr(1.28,.86,.3)),black);face.position.set(0,.02,f+.005);G.add(face);
+  const eg=new THREE.SphereGeometry(.1,24,16),eyes=[-.3,.3].map(x=>{const e=new THREE.Mesh(eg,glow);e.scale.set(1,1.5,.35);e.position.set(x,.1,f+.03);G.add(e);return e});
+  const mouth=new THREE.Mesh(new THREE.TorusGeometry(.13,.022,8,24,Math.PI),glow);mouth.rotation.z=Math.PI;mouth.position.set(0,-.08,f+.02);G.add(mouth);
+  const ag=new THREE.SphereGeometry(.2,24,16),arms=[-1,1].map(s=>{const a=new THREE.Mesh(ag,white);a.position.set(s*1.08,-.15,.05);G.add(a);return a});
+  const keys=[..."KEYMOL"].map((ch,i)=>{const k=new THREE.Group();k.add(rbox(.44,.44,.16,.1,.035,white));const l=letter(ch);l.position.z=.12;k.add(l);k.userData={a:i/6*Math.PI*2,r:1.85+(i%2)*.3,y:(i%3-1)*.55};G.add(k);return k});
+  return{G,eyes,mouth,arms,keys}
+}
+/*END*/
+
+const canvas=document.getElementById("gl");let R=null;
+try{R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true})}catch(e){R=null}
+if(!R){document.documentElement.classList.add("nogl");return}
+const rm=matchMedia("(prefers-reduced-motion:reduce)").matches,scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(35,1,.1,50);cam.position.z=8;
+scene.add(new THREE.HemisphereLight(0xffffff,0x222222,.85));
+const kl=new THREE.DirectionalLight(0xffffff,1.1);kl.position.set(3,4,5);scene.add(kl);
+const rl=new THREE.DirectionalLight(0xffffff,.8);rl.position.set(-4,2,-3);scene.add(rl);
+const C=build(),G=C.G;G.visible=false;scene.add(G);
+const anchors=[...document.querySelectorAll("[data-char]")],vis=2*Math.tan(THREE.MathUtils.degToRad(cam.fov/2))*cam.position.z,tmp=new THREE.Vector3(),ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
+const st={x:0,y:0,s:0,tx:0,ty:0,ts:0,hop:0,vy:0,mood:0,blink:0,nb:2,px:null,py:null,ry:0,rx:0,first:true};
+function size(){R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()}
+size();addEventListener("resize",size);
+addEventListener("pointermove",e=>{st.px=e.clientX;st.py=e.clientY},{passive:true});
+addEventListener("pointerdown",e=>{ndc.set(e.clientX/innerWidth*2-1,-(e.clientY/innerHeight*2-1));ray.setFromCamera(ndc,cam);if(G.visible&&ray.intersectObject(G,true).length&&!rm){st.vy=5.5;st.mood=1;st.blink=1}});
+function pick(){let b=null,bv=40;for(const a of anchors){const r=a.getBoundingClientRect(),v=Math.min(r.bottom,innerHeight)-Math.max(r.top,0);if(v>bv){bv=v;b=r}}return b}
+const cl=(v,a,b)=>Math.max(a,Math.min(b,v));let last=0;
+function frame(t){
+  requestAnimationFrame(frame);const time=t/1000,dt=Math.min(.05,time-last);last=time;
+  const r=pick();
+  if(r){tmp.set((r.left+r.width/2)/innerWidth*2-1,-((r.top+r.height/2)/innerHeight*2-1),.5).unproject(cam).sub(cam.position).normalize();tmp.multiplyScalar(-cam.position.z/tmp.z).add(cam.position);
+    st.tx=tmp.x;st.ty=tmp.y;st.ts=Math.min(r.height/innerHeight*vis/3.1,r.width/innerWidth*vis*(innerWidth/innerHeight)/3.6)}else st.ts=0;
+  const k=st.first?1:1-Math.exp(-5*dt);if(r)st.first=false;
+  st.x+=(st.tx-st.x)*k;st.y+=(st.ty-st.y)*k;st.s+=(st.ts-st.s)*k;
+  G.visible=st.s>.02;if(!G.visible)return;
+  st.vy-=16*dt;st.hop=Math.max(0,st.hop+st.vy*dt);if(st.hop===0&&st.vy<0)st.vy=0;st.mood=Math.max(0,st.mood-dt*.7);
+  G.scale.setScalar(st.s);G.position.set(st.x,st.y+(rm?0:Math.sin(time*1.4)*.07+st.hop)*st.s,0);
+  const pv=new THREE.Vector3().copy(G.position).project(cam),cx=(pv.x+1)/2*innerWidth,cy=(1-pv.y)/2*innerHeight;
+  let lx,ly;if(st.px===null){lx=Math.sin(time*.7)*.45;ly=Math.cos(time*.5)*.2}else{lx=cl((st.px-cx)/(innerWidth*.35),-1,1);ly=cl((st.py-cy)/(innerHeight*.35),-1,1)}
+  const k2=1-Math.exp(-8*dt);st.ry+=(lx*.6-st.ry)*k2;st.rx+=(ly*.32-st.rx)*k2;G.rotation.set(st.rx,st.ry,0);
+  st.nb-=dt;if(st.nb<0){st.blink=1;st.nb=2.5+Math.random()*3}st.blink=Math.max(0,st.blink-dt*6);
+  const bs=1-Math.sin(Math.min(1,st.blink)*Math.PI)*.9;
+  C.eyes.forEach(e=>{e.position.x=(e.position.x>0?.3:-.3)+lx*.08;e.position.y=.1-ly*.05;e.scale.y=1.5*bs});
+  C.mouth.scale.set(1+st.mood*.6,1+st.mood*.9,1);
+  C.arms.forEach((a,i)=>{a.position.y=-.15+(rm?0:Math.sin(time*2+i*2)*.06)+st.hop*.4+st.mood*.15});
+  C.keys.forEach((kg,i)=>{const d=kg.userData;d.a+=dt*(rm?.05:.35+st.mood*1.6);kg.position.set(Math.cos(d.a)*d.r*(1+st.mood*.15),d.y+(rm?0:Math.sin(time*1.2+i)*.1),Math.sin(d.a)*d.r*.55);kg.rotation.set(Math.sin(time*.8+i)*.3,Math.cos(time*.6+i)*.4,Math.sin(time*.5+i)*.2)});
+  R.render(scene,cam)
+}
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
