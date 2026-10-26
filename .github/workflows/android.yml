@@ -1,0 +1,46 @@
+name: Android debug build and release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build debug APK
+        run: gradle assembleDebug --stacktrace
+      - name: Name the APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk Kbrd-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Kbrd-debug-apk
+          path: Kbrd-debug.apk
+
+  release:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: Kbrd-debug-apk
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Kbrd v1.0.${{ github.run_number }} (debug)
+          files: Kbrd-debug.apk
+          generate_release_notes: true
