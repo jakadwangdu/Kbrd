@@ -18,7 +18,9 @@ import org.json.JSONObject;
 final class Ai {
     interface Cb { void done(String text, String err); }
 
-    private static final ExecutorService EX = Executors.newSingleThreadExecutor();
+    private static final ExecutorService EX = Executors.newFixedThreadPool(2);
+
+    static final String FREE_BASE = "https://oai.endpoints.kepler.ai.cloud.ovh.net/v1", FREE_MODEL = "gpt-oss-120b";
 
     private static class Err extends Exception { Err(String m) { super(m); } }
 
@@ -27,9 +29,12 @@ final class Ai {
     static String config(Context c) {
         SharedPreferences p = prefs(c);
         try {
-            return new JSONObject().put("provider", p.getString("ai_provider", "groq"))
-                    .put("base", p.getString("ai_base", "")).put("model", p.getString("ai_model", ""))
-                    .put("hasKey", Vault.get(c) != null).toString();
+            String pv = p.getString("ai_provider", "free");
+            boolean fr = pv.equals("free");
+            return new JSONObject().put("provider", pv)
+                    .put("base", p.getString("ai_base", fr ? FREE_BASE : ""))
+                    .put("model", p.getString("ai_model", fr ? FREE_MODEL : ""))
+                    .put("hasKey", Vault.has(c)).toString();
         } catch (Exception e) {
             return "{}";
         }
@@ -37,8 +42,16 @@ final class Ai {
 
     static boolean ready(Context c) {
         SharedPreferences p = prefs(c);
-        return Vault.get(c) != null && !p.getString("ai_base", "").isEmpty() && !p.getString("ai_model", "").isEmpty();
+        return state(c).equals("ready");
     }
+
+    static String state(Context c) {
+        SharedPreferences p = prefs(c);
+        if (p.getString("ai_provider", "free").equals("free")) return p.getBoolean("free_ok", false) ? "ready" : "consent";
+        return Vault.has(c) && !p.getString("ai_base", "").isEmpty() && !p.getString("ai_model", "").isEmpty() ? "ready" : "nokey";
+    }
+
+    static void consent(Context c) { prefs(c).edit().putBoolean("free_ok", true).apply(); }
 
     static void save(Context c, String json) {
         try {
@@ -47,6 +60,7 @@ final class Ai {
             while (base.endsWith("/")) base = base.substring(0, base.length() - 1);
             prefs(c).edit().putString("ai_provider", o.optString("provider", "custom"))
                     .putString("ai_base", base).putString("ai_model", o.optString("model").trim()).apply();
+            if (o.optString("provider").equals("free")) prefs(c).edit().putBoolean("free_ok", true).apply();
             String key = o.optString("key").trim();
             if (!key.isEmpty()) Vault.put(c, key);
         } catch (Exception ignored) { }
@@ -56,8 +70,13 @@ final class Ai {
         EX.execute(() -> {
             try {
                 SharedPreferences p = prefs(c);
-                String key = Vault.get(c), base = p.getString("ai_base", ""), model = p.getString("ai_model", "");
-                if (key == null || base.isEmpty() || model.isEmpty()) {
+                boolean free = p.getString("ai_provider", "free").equals("free");
+                String key = free ? null : Vault.get(c);
+                String base = p.getString("ai_base", ""), model = p.getString("ai_model", "");
+                if (free && base.isEmpty()) base = FREE_BASE;
+                if (free && model.isEmpty()) model = FREE_MODEL;
+                if (free && !p.getBoolean("free_ok", false)) { cb.done(null, "Turn on free AI first."); return; }
+                if ((!free && key == null) || base.isEmpty() || model.isEmpty()) {
                     cb.done(null, "Add your API key in the Kbrd app first.");
                     return;
                 }
@@ -113,7 +132,7 @@ final class Ai {
         String s = read(code < 400 ? h.getInputStream() : h.getErrorStream());
         h.disconnect();
         if (code == 401 || code == 403) throw new Err("The API key was rejected. Check the key and the provider.");
-        if (code == 429) throw new Err("Rate limit reached. Free plans allow limited requests, so wait a moment.");
+        if (code == 429) throw new Err("Rate limit reached. Free plans allow limited requests, so wait a moment or add your own key in the app.");
         if (code == 404) throw new Err("Model or address not found. Check the model name and base URL.");
         if (code >= 400) throw new Err("The AI service returned an error (" + code + ").");
         return s;

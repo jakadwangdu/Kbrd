@@ -10,6 +10,8 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.InputType;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.SharedPreferences;
@@ -25,6 +27,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
+import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebViewClient;
 import org.json.JSONObject;
 
@@ -54,7 +57,7 @@ public class KeymoldIME extends InputMethodService {
     @Override public boolean onEvaluateFullscreenMode() { return false; }
 
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
-    @Override public View onCreateInputView() {
+    private WebView makeWeb() {
         web = new WebView(this);
         web.setBackgroundColor(Color.BLACK);
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -68,14 +71,23 @@ public class KeymoldIME extends InputMethodService {
         web.setLayoutParams(new ViewGroup.LayoutParams(-1, px(312)));
         web.setWebViewClient(new WebViewClient() {
             @Override public void onPageFinished(WebView v, String u) { pushCfg(); }
+            @Override public boolean onRenderProcessGone(WebView v, RenderProcessGoneDetail d) {
+                ui.post(() -> {
+                    try { v.destroy(); } catch (Exception ignored) { }
+                    setInputView(makeWeb());
+                });
+                return true;
+            }
         });
         web.loadUrl("file:///android_asset/keyboard.html");
         return web;
     }
 
+    @Override public View onCreateInputView() { return makeWeb(); }
+
     @Override public void onStartInputView(EditorInfo info, boolean restarting) {
         super.onStartInputView(info, restarting);
-        if (web != null) web.evaluateJavascript("txt='';lastTxt='';cur=-1;if(mode!=='abc'){stopV();mode='abc';body()}out()", null);
+        if (web != null) seedFor(info);
         pushCfg();
     }
 
@@ -106,11 +118,13 @@ public class KeymoldIME extends InputMethodService {
 
     private SpeechRecognizer sr;
     private boolean listening;
+    private int empties;
+    private final ExecutorService IO = Executors.newSingleThreadExecutor();
+    private final Runnable reseed = () -> IO.execute(this::reseedNow);
     private String voiceLang = "en-IN";
 
     private void voiceEvt(String t, String s) {
-        if (web != null)
-            web.evaluateJavascript("voiceEvt('" + t + "'," + JSONObject.quote(s == null ? "" : s) + ")", null);
+        js("voiceEvt('" + t + "'," + JSONObject.quote(s == null ? "" : s) + ")");
     }
 
     private static String first(Bundle b) {
@@ -152,6 +166,7 @@ public class KeymoldIME extends InputMethodService {
         }
         stopVoice();
         listening = true;
+        empties = 0;
         voiceLang = lang == null ? "en-IN" : lang;
         sr = SpeechRecognizer.createSpeechRecognizer(this);
         sr.setRecognitionListener(new RecognitionListener() {
@@ -167,11 +182,19 @@ public class KeymoldIME extends InputMethodService {
             }
             @Override public void onResults(Bundle b) {
                 String t = first(b);
-                if (t != null) voiceEvt("final", t);
+                if (t != null) { empties = 0; voiceEvt("final", t); }
                 again(150);
             }
             @Override public void onError(int e) {
-                if (e == SpeechRecognizer.ERROR_NO_MATCH || e == SpeechRecognizer.ERROR_SPEECH_TIMEOUT) { again(150); return; }
+                if (e == SpeechRecognizer.ERROR_NO_MATCH || e == SpeechRecognizer.ERROR_SPEECH_TIMEOUT) {
+                    if (++empties > 4) {
+                        listening = false;
+                        voiceEvt("error", "Didn't catch that. Tap the mic to try again.");
+                        return;
+                    }
+                    again(150);
+                    return;
+                }
                 if (e == SpeechRecognizer.ERROR_RECOGNIZER_BUSY) { again(500); return; }
                 listening = false;
                 String m = e == SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS
@@ -189,6 +212,7 @@ public class KeymoldIME extends InputMethodService {
     @Override public void onWindowHidden() {
         super.onWindowHidden();
         stopVoice();
+        js("try{stopR();stopV()}catch(e){}");
     }
 
     private boolean blocked(EditorInfo ei) {
@@ -201,7 +225,49 @@ public class KeymoldIME extends InputMethodService {
     }
 
     private void srcCb(JSONObject o) {
-        if (web != null) web.evaluateJavascript("aiSrcCb(" + JSONObject.quote(o.toString()) + ")", null);
+        final String q = JSONObject.quote(o.toString());
+        ui.post(() -> js("aiSrcCb(" + q + ")"));
+    }
+
+    private void js(String code) {
+        try { if (web != null) web.evaluateJavascript(code, null); } catch (Exception ignored) { }
+    }
+
+    private String ctxBefore() {
+        try {
+            InputConnection ic = getCurrentInputConnection();
+            CharSequence b = ic == null ? null : ic.getTextBeforeCursor(40, 0);
+            return b == null ? "" : b.toString();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    private void seedFor(EditorInfo ei) {
+        int cls = ei == null ? 0 : ei.inputType & InputType.TYPE_MASK_CLASS;
+        final boolean num = cls == InputType.TYPE_CLASS_NUMBER || cls == InputType.TYPE_CLASS_PHONE;
+        final boolean caps = cls == InputType.TYPE_CLASS_TEXT && (ei.inputType & (InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+                | InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS)) != 0;
+        IO.execute(() -> {
+            final String c = JSONObject.quote(ctxBefore());
+            ui.post(() -> js("try{stopR();stopV()}catch(e){}seedCtx(" + c + "," + caps + ",'" + (num ? "num" : "abc") + "')"));
+        });
+    }
+
+    private void reseedNow() {
+        final String c = JSONObject.quote(ctxBefore());
+        ui.post(() -> js("seedCtx(" + c + ")"));
+    }
+
+    @Override public void onUpdateSelection(int os, int oe, int ns, int ne, int cs, int ce) {
+        super.onUpdateSelection(os, oe, ns, ne, cs, ce);
+        ui.removeCallbacks(reseed);
+        ui.postDelayed(reseed, 150);
+    }
+
+    @Override public void onFinishInputView(boolean finishingInput) {
+        super.onFinishInputView(finishingInput);
+        js("try{stopR();stopV()}catch(e){}");
     }
 
     class Bridge {
@@ -220,10 +286,12 @@ public class KeymoldIME extends InputMethodService {
 
         @JavascriptInterface public void voiceStop() { ui.post(() -> stopVoice()); }
 
-        @JavascriptInterface public boolean aiHasKey() { return Ai.ready(KeymoldIME.this); }
+        @JavascriptInterface public String aiState() { return Ai.state(KeymoldIME.this); }
+
+        @JavascriptInterface public void aiConsent() { Ai.consent(KeymoldIME.this); }
 
         @JavascriptInterface public void aiSrc() {
-            ui.post(() -> {
+            IO.execute(() -> {
                 JSONObject o = new JSONObject();
                 try {
                     InputConnection ic = getCurrentInputConnection();
@@ -303,6 +371,7 @@ public class KeymoldIME extends InputMethodService {
             ui.post(() -> {
                 if (web == null) return;
                 ViewGroup.LayoutParams p = web.getLayoutParams();
+                if (p == null) return;
                 p.height = px(cssPx);
                 web.setLayoutParams(p);
                 web.requestLayout();

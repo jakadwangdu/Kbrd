@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -101,6 +103,12 @@ public class MainActivity extends Activity {
         web.setBackgroundColor(Color.BLACK);
         web.getSettings().setJavaScriptEnabled(true);
         web.getSettings().setDomStorageEnabled(true);
+        web.setWebViewClient(new WebViewClient() {
+            @Override public boolean onRenderProcessGone(WebView v, RenderProcessGoneDetail d) {
+                runOnUiThread(() -> recreate());
+                return true;
+            }
+        });
         web.addJavascriptInterface(new Object() {
             @JavascriptInterface public void buzz(int h) { Haptics.buzz(MainActivity.this, h); }
             @JavascriptInterface public void save(String json) {

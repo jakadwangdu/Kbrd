@@ -59,6 +59,10 @@ final class Vault {
         }
     }
 
+    static boolean has(Context c) {
+        return prefs(c).contains("k");
+    }
+
     static void clear(Context c) {
         prefs(c).edit().remove("k").apply();
     }
