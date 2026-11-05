@@ -23,10 +23,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import org.json.JSONObject;
 
 public class MainActivity extends Activity {
     private TextView status;
+    private TextView crash;
     private WebView web;
 
     private int dp(int v) { return (int) (v * getResources().getDisplayMetrics().density); }
@@ -74,6 +77,7 @@ public class MainActivity extends Activity {
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     @Override protected void onCreate(Bundle b) {
         super.onCreate(b);
+        Crash.install(this);
         getWindow().setStatusBarColor(Color.BLACK);
         getWindow().setNavigationBarColor(Color.BLACK);
         LinearLayout root = new LinearLayout(this);
@@ -98,6 +102,17 @@ public class MainActivity extends Activity {
         status = text("", 13, 0xFFFFFFFF, false);
         status.setPadding(0, dp(10), 0, dp(2));
         root.addView(status);
+        crash = text("", 12, 0xFFFF8A80, false);
+        crash.setPadding(0, dp(4), 0, dp(4));
+        crash.setVisibility(View.GONE);
+        crash.setOnClickListener(v -> {
+            String r = Crash.take(this);
+            if (r != null) {
+                ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("Kbrd crash report", r));
+                crash.setText("Report copied. Paste it to share it.");
+            }
+        });
+        root.addView(crash);
 
         web = new WebView(this);
         web.setBackgroundColor(Color.BLACK);
@@ -174,6 +189,11 @@ public class MainActivity extends Activity {
         boolean active = def != null && def.startsWith(getPackageName() + "/");
         status.setText(!enabled ? "Step 1: enable Kbrd in keyboard settings"
                 : !active ? "Step 2: switch to Kbrd"
+                
                 : "Kbrd is active \u2713  Try it below");
+        if (Crash.has(this)) {
+            crash.setVisibility(View.VISIBLE);
+            crash.setText("Kbrd crashed last time. Tap here to copy the report.");
+        }
     }
 }
