@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.content.res.Configuration;
+import android.util.DisplayMetrics;
 import android.text.InputType;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -41,6 +43,7 @@ public class KeymoldIME extends InputMethodService {
 
     @Override public void onCreate() {
         super.onCreate();
+        Crash.install(this);
         cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         cm.addPrimaryClipChangedListener(clipListener);
         prefs = getSharedPreferences("km", MODE_PRIVATE);
@@ -58,6 +61,7 @@ public class KeymoldIME extends InputMethodService {
 
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     private WebView makeWeb() {
+        if (web != null) { try { web.destroy(); } catch (Exception ignored) { } }
         web = new WebView(this);
         web.setBackgroundColor(Color.BLACK);
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -72,8 +76,20 @@ public class KeymoldIME extends InputMethodService {
         web.setWebViewClient(new WebViewClient() {
             @Override public void onPageFinished(WebView v, String u) { pushCfg(); }
             @Override public boolean onRenderProcessGone(WebView v, RenderProcessGoneDetail d) {
-                ui.post(() -> {
+                post(() -> {
                     try { v.destroy(); } catch (Exception ignored) { }
+                    long n = System.currentTimeMillis();
+                    quick = (n - lastDeath < 20000) ? quick + 1 : 1;
+                    lastDeath = n;
+                    if (quick > 3) {
+                        android.widget.TextView tv = new android.widget.TextView(KeymoldIME.this);
+                        tv.setText("Kbrd paused after repeated errors. Switch keyboards with the keyboard icon, then reopen Kbrd.");
+                        tv.setTextColor(0xFFFFFFFF);
+                        tv.setBackgroundColor(0xFF000000);
+                        tv.setPadding(40, 40, 40, 40);
+                        setInputView(tv);
+                        return;
+                    }
                     setInputView(makeWeb());
                 });
                 return true;
@@ -119,8 +135,10 @@ public class KeymoldIME extends InputMethodService {
     private SpeechRecognizer sr;
     private boolean listening;
     private int empties;
+    private long lastDeath;
+    private int quick;
     private final ExecutorService IO = Executors.newSingleThreadExecutor();
-    private final Runnable reseed = () -> IO.execute(this::reseedNow);
+    private final Runnable reseed = () -> io(this::reseedNow);
     private String voiceLang = "en-IN";
 
     private void voiceEvt(String t, String s) {
@@ -133,7 +151,9 @@ public class KeymoldIME extends InputMethodService {
     }
 
     private void again(long ms) {
-        ui.postDelayed(() -> { if (listening && sr != null) listenOnce(); }, ms);
+        ui.postDelayed(() -> {
+            try { if (listening && sr != null) listenOnce(); } catch (Exception e) { listening = false; }
+        }, ms);
     }
 
     private void listenOnce() {
@@ -226,7 +246,24 @@ public class KeymoldIME extends InputMethodService {
 
     private void srcCb(JSONObject o) {
         final String q = JSONObject.quote(o.toString());
-        ui.post(() -> js("aiSrcCb(" + q + ")"));
+        post(() -> js("aiSrcCb(" + q + ")"));
+    }
+
+    private void post(Runnable r) {
+        ui.post(() -> {
+            try { r.run(); } catch (Throwable t) { Crash.note(this, t); }
+        });
+    }
+
+    private void io(Runnable r) {
+        IO.execute(() -> {
+            try { r.run(); } catch (Throwable t) { Crash.note(this, t); }
+        });
+    }
+
+    @Override public void onConfigurationChanged(Configuration c) {
+        super.onConfigurationChanged(c);
+        js("try{autoFit(false)}catch(e){}");
     }
 
     private void js(String code) {
@@ -248,15 +285,15 @@ public class KeymoldIME extends InputMethodService {
         final boolean num = cls == InputType.TYPE_CLASS_NUMBER || cls == InputType.TYPE_CLASS_PHONE;
         final boolean caps = cls == InputType.TYPE_CLASS_TEXT && (ei.inputType & (InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
                 | InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS)) != 0;
-        IO.execute(() -> {
+        io(() -> {
             final String c = JSONObject.quote(ctxBefore());
-            ui.post(() -> js("try{stopR();stopV()}catch(e){}seedCtx(" + c + "," + caps + ",'" + (num ? "num" : "abc") + "')"));
+            post(() -> js("try{stopR();stopV()}catch(e){}seedCtx(" + c + "," + caps + ",'" + (num ? "num" : "abc") + "')"));
         });
     }
 
     private void reseedNow() {
         final String c = JSONObject.quote(ctxBefore());
-        ui.post(() -> js("seedCtx(" + c + ")"));
+        post(() -> js("seedCtx(" + c + ")"));
     }
 
     @Override public void onUpdateSelection(int os, int oe, int ns, int ne, int cs, int ce) {
@@ -271,27 +308,42 @@ public class KeymoldIME extends InputMethodService {
     }
 
     class Bridge {
-        @JavascriptInterface public void edit(int del, String ins) {
-            ui.post(() -> {
+        @JavascriptInterface public void edit(int del, String ins, int h) {
+            Haptics.buzz(KeymoldIME.this, h);
+            post(() -> {
                 InputConnection ic = getCurrentInputConnection();
                 if (ic == null) return;
+                if (del <= 0) {
+                    if (ins != null && ins.length() > 0) ic.commitText(ins, 1);
+                    return;
+                }
                 ic.beginBatchEdit();
-                if (del > 0) ic.deleteSurroundingText(del, 0);
+                ic.deleteSurroundingText(del, 0);
                 if (ins != null && ins.length() > 0) ic.commitText(ins, 1);
                 ic.endBatchEdit();
             });
         }
 
-        @JavascriptInterface public void voiceStart(String lang) { ui.post(() -> startVoice(lang)); }
+        @JavascriptInterface public void voiceStart(String lang) { post(() -> startVoice(lang)); }
 
-        @JavascriptInterface public void voiceStop() { ui.post(() -> stopVoice()); }
+        @JavascriptInterface public void voiceStop() { post(() -> stopVoice()); }
+
+        @JavascriptInterface public String device() {
+            try {
+                DisplayMetrics m = getResources().getDisplayMetrics();
+                return new JSONObject().put("w", Math.round(m.widthPixels / m.density))
+                        .put("h", Math.round(m.heightPixels / m.density)).toString();
+            } catch (Exception e) {
+                return "{}";
+            }
+        }
 
         @JavascriptInterface public String aiState() { return Ai.state(KeymoldIME.this); }
 
         @JavascriptInterface public void aiConsent() { Ai.consent(KeymoldIME.this); }
 
         @JavascriptInterface public void aiSrc() {
-            IO.execute(() -> {
+            io(() -> {
                 JSONObject o = new JSONObject();
                 try {
                     InputConnection ic = getCurrentInputConnection();
@@ -321,14 +373,14 @@ public class KeymoldIME extends InputMethodService {
         }
 
         @JavascriptInterface public void aiRun(int id, String system, String user) {
-            Ai.chat(KeymoldIME.this, system, user, (text, err) -> ui.post(() -> {
+            Ai.chat(KeymoldIME.this, system, user, (text, err) -> post(() -> {
                 if (web == null) return;
                 web.evaluateJavascript("aiEvt(" + id + "," + (err == null) + "," + JSONObject.quote(err == null ? text : err) + ")", null);
             }));
         }
 
         @JavascriptInterface public void aiApply(String text, int del) {
-            ui.post(() -> {
+            post(() -> {
                 InputConnection ic = getCurrentInputConnection();
                 if (ic == null) return;
                 ic.beginBatchEdit();
@@ -339,17 +391,20 @@ public class KeymoldIME extends InputMethodService {
         }
 
         @JavascriptInterface public void aiCopy(String text) {
-            ui.post(() -> cm.setPrimaryClip(ClipData.newPlainText("Kbrd", text)));
+            post(() -> cm.setPrimaryClip(ClipData.newPlainText("Kbrd", text)));
         }
 
         @JavascriptInterface public void openApp() {
-            ui.post(() -> startActivity(new Intent(KeymoldIME.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+            post(() -> startActivity(new Intent(KeymoldIME.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
         }
 
-        @JavascriptInterface public void back() { ui.post(() -> key(KeyEvent.KEYCODE_DEL)); }
+        @JavascriptInterface public void back(int h) {
+            Haptics.buzz(KeymoldIME.this, h);
+            post(() -> key(KeyEvent.KEYCODE_DEL));
+        }
 
         @JavascriptInterface public void enter() {
-            ui.post(() -> {
+            post(() -> {
                 InputConnection ic = getCurrentInputConnection();
                 EditorInfo ei = getCurrentInputEditorInfo();
                 if (ic == null) return;
@@ -361,14 +416,14 @@ public class KeymoldIME extends InputMethodService {
         }
 
         @JavascriptInterface public void move(int steps) {
-            ui.post(() -> {
+            post(() -> {
                 int code = steps < 0 ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
                 for (int i = 0; i < Math.abs(steps); i++) key(code);
             });
         }
 
         @JavascriptInterface public void height(int cssPx) {
-            ui.post(() -> {
+            post(() -> {
                 if (web == null) return;
                 ViewGroup.LayoutParams p = web.getLayoutParams();
                 if (p == null) return;

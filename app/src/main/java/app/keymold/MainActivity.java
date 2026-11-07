@@ -23,11 +23,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.util.DisplayMetrics;
 import org.json.JSONObject;
 
 public class MainActivity extends Activity {
     private TextView status;
+    private TextView crash;
     private WebView web;
+    private static long lastDeath;
+    private static int quick;
 
     private int dp(int v) { return (int) (v * getResources().getDisplayMetrics().density); }
 
@@ -68,12 +74,32 @@ public class MainActivity extends Activity {
     }
 
     private void cb(String type, String payload) {
-        runOnUiThread(() -> web.evaluateJavascript("aiCb('" + type + "'," + JSONObject.quote(payload) + ")", null));
+        runOnUiThread(() -> {
+            try { web.evaluateJavascript("aiCb('" + type + "'," + JSONObject.quote(payload) + ")", null); }
+            catch (Throwable ignored) { }
+        });
     }
 
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     @Override protected void onCreate(Bundle b) {
         super.onCreate(b);
+        Crash.install(this);
+        try { build(); } catch (Throwable t) { fallback(t); }
+    }
+
+    private void fallback(Throwable t) {
+        Crash.note(this, t);
+        TextView tv = new TextView(this);
+        tv.setBackgroundColor(Color.BLACK);
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(15);
+        tv.setPadding(dp(20), dp(60), dp(20), dp(20));
+        tv.setText("Kbrd could not draw its settings screen. The keyboard itself is separate and should still work.\n\nTo use it, open Android Settings > System > Languages & input and choose Kbrd.\n\nThe error was saved. Reopen this app later to copy the report.");
+        setContentView(tv);
+    }
+
+    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
+    private void build() {
         getWindow().setStatusBarColor(Color.BLACK);
         getWindow().setNavigationBarColor(Color.BLACK);
         LinearLayout root = new LinearLayout(this);
@@ -98,6 +124,17 @@ public class MainActivity extends Activity {
         status = text("", 13, 0xFFFFFFFF, false);
         status.setPadding(0, dp(10), 0, dp(2));
         root.addView(status);
+        crash = text("", 12, 0xFFFF8A80, false);
+        crash.setPadding(0, dp(4), 0, dp(4));
+        crash.setVisibility(View.GONE);
+        crash.setOnClickListener(v -> {
+            String r = Crash.take(this);
+            if (r != null) {
+                ((ClipboardManager) getSystemService(CLIPBOARD_SERVICE)).setPrimaryClip(ClipData.newPlainText("Kbrd crash report", r));
+                crash.setText("Report copied. Paste it to share it.");
+            }
+        });
+        root.addView(crash);
 
         web = new WebView(this);
         web.setBackgroundColor(Color.BLACK);
@@ -105,7 +142,13 @@ public class MainActivity extends Activity {
         web.getSettings().setDomStorageEnabled(true);
         web.setWebViewClient(new WebViewClient() {
             @Override public boolean onRenderProcessGone(WebView v, RenderProcessGoneDetail d) {
-                runOnUiThread(() -> recreate());
+                runOnUiThread(() -> {
+                    long n = System.currentTimeMillis();
+                    quick = (n - lastDeath < 15000) ? quick + 1 : 1;
+                    lastDeath = n;
+                    if (quick > 2) fallback(new RuntimeException("WebView renderer stopped repeatedly"));
+                    else recreate();
+                });
                 return true;
             }
         });
@@ -113,6 +156,15 @@ public class MainActivity extends Activity {
             @JavascriptInterface public void buzz(int h) { Haptics.buzz(MainActivity.this, h); }
             @JavascriptInterface public void save(String json) {
                 getSharedPreferences("km", MODE_PRIVATE).edit().putString("cfg", json).apply();
+            }
+            @JavascriptInterface public String device() {
+                try {
+                    DisplayMetrics m = getResources().getDisplayMetrics();
+                    return new JSONObject().put("w", Math.round(m.widthPixels / m.density))
+                            .put("h", Math.round(m.heightPixels / m.density)).toString();
+                } catch (Exception e) {
+                    return "{}";
+                }
             }
             @JavascriptInterface public String aiConfig() { return Ai.config(MainActivity.this); }
             @JavascriptInterface public void aiSave(String json) { Ai.save(MainActivity.this, json); }
@@ -166,6 +218,7 @@ public class MainActivity extends Activity {
 
     @Override protected void onResume() {
         super.onResume();
+        if (status == null) return;
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         boolean enabled = false;
         for (InputMethodInfo i : imm.getEnabledInputMethodList())
@@ -174,6 +227,11 @@ public class MainActivity extends Activity {
         boolean active = def != null && def.startsWith(getPackageName() + "/");
         status.setText(!enabled ? "Step 1: enable Kbrd in keyboard settings"
                 : !active ? "Step 2: switch to Kbrd"
+                
                 : "Kbrd is active \u2713  Try it below");
+        if (Crash.has(this)) {
+            crash.setVisibility(View.VISIBLE);
+            crash.setText("Kbrd crashed last time. Tap here to copy the report.");
+        }
     }
 }

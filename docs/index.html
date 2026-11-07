@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Kbrd", "url": "https://jakadwangdu.github.io/Kbrd/"}, {"@type": "SoftwareApplication", "name": "Kbrd", "alternateName": "Kbrd keyboard", "operatingSystem": "Android 8.0+", "applicationCategory": "UtilitiesApplication", "description": "Kbrd is a minimalist Android keyboard with voice typing, a full emoji library and an AI assistant that uses your own free API key. Download the APK.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "downloadUrl": "https://github.com/jakadwangdu/Kbrd/releases/latest/download/Kbrd-debug.apk", "url": "https://jakadwangdu.github.io/Kbrd/", "author": {"@type": "Person", "name": "Shaurya", "url": "https://github.com/jakadwangdu"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Kbrd?", "acceptedAnswer": {"@type": "Answer", "text": "Kbrd is a minimalist Android keyboard with a full emoji library, a clipboard, a number pad, voice typing in English and Hindi, adjustable size and haptics, and an optional AI assistant."}}, {"@type": "Question", "name": "Is Kbrd free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Kbrd is free to download as an APK from the official GitHub releases page."}}, {"@type": "Question", "name": "How does the AI assistant work?", "acceptedAnswer": {"@type": "Answer", "text": "Kbrd Free works out of the box with an open-source model hosted by OVHcloud, with no key. You can also paste your own API key from a provider such as Groq, OpenRouter or Google Gemini. When you tap an AI action, Kbrd sends only the selected text or the text before your cursor to the service and shows you the result before replacing anything."}}, {"@type": "Question", "name": "Which AI models can I use?", "acceptedAnswer": {"@type": "Answer", "text": "The built-in Kbrd Free option uses an open-source model and allows about 2 requests a minute. With your own key you can use any model from an OpenAI-compatible provider, including free tiers and open-source models on Groq, OpenRouter and Together."}}, {"@type": "Question", "name": "Is my typing private?", "acceptedAnswer": {"@type": "Answer", "text": "Kbrd has no servers and no analytics. It goes online only when you tap an AI action, never runs in password fields, and stores your API key encrypted with the Android Keystore."}}, {"@type": "Question", "name": "How do I install the APK?", "acceptedAnswer": {"@type": "Answer", "text": "Download Kbrd-debug.apk, allow installs from your browser when Android asks, open the file, then open Kbrd and follow the two setup steps to enable and switch to the keyboard."}}, {"@type": "Question", "name": "Does Kbrd support Hindi voice typing?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Choose हिन्दी in the voice panel, allow the microphone and speak. Saying “send” or “bhej” sends your message. Voice recognition uses your phone’s own speech service."}}]}]}</script>
-<script>document.documentElement.classList.add("js")</script>
+<script>document.documentElement.classList.add("js");if(window.matchMedia&&!matchMedia("(prefers-reduced-motion:reduce)").matches)document.documentElement.classList.add("anim")</script>
 <style>
 :root{--bg:#000;--fg:#fff;--mute:#9a9a9a;--line:rgba(255,255,255,.14);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
@@ -77,7 +77,23 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
 html.lenis{scroll-behavior:auto}
 .card.cs{background:repeating-linear-gradient(135deg,#000 0 10px,#070707 10px 20px)}
 @media (max-width:900px){.grid .card:last-child{grid-column:1/-1}}
-.two{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}.ticks{list-style:none;margin:0;padding:0}.ticks li{padding:12px 0;border-top:1px solid var(--line);color:#fff}.acts{display:flex;flex-wrap:wrap;gap:10px}.acts span{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;color:#fff}.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}.posts a{background:var(--bg);padding:30px;text-decoration:none;transition:background .3s}.posts a:hover{background:#0d0d0d}.posts h3{font-size:20px;letter-spacing:-.02em;font-weight:500;margin:10px 0 8px}.posts p{margin:0;color:var(--mute);font-size:15px}details{border-top:1px solid var(--line);padding:20px 0}details:last-of-type{border-bottom:1px solid var(--line)}summary{cursor:pointer;font-size:18px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px}summary::after{content:"+";color:var(--mute)}details[open] summary::after{content:"\2212"}details p{color:var(--mute);margin:12px 0 0;max-width:720px}.mk{vertical-align:-6px;margin-right:8px}@media (max-width:820px){.two,.posts{grid-template-columns:1fr}}.nogl .stage{position:relative}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}.ticks{list-style:none;margin:0;padding:0}.ticks li{padding:12px 0;border-top:1px solid var(--line);color:#fff}.acts{display:flex;flex-wrap:wrap;gap:10px}.acts span{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px;color:#fff}.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}.posts a{background:var(--bg);padding:30px;text-decoration:none;transition:background .3s}.posts a:hover{background:#0d0d0d}.posts h3{font-size:20px;letter-spacing:-.02em;font-weight:500;margin:10px 0 8px}.posts p{margin:0;color:var(--mute);font-size:15px}details{border-top:1px solid var(--line);padding:20px 0}details:last-of-type{border-bottom:1px solid var(--line)}summary{cursor:pointer;font-size:18px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px}summary::after{content:"+";color:var(--mute)}details[open] summary::after{content:"\2212"}details p{color:var(--mute);margin:12px 0 0;max-width:720px}.mk{vertical-align:-6px;margin-right:8px}@media (max-width:820px){.two,.posts{grid-template-columns:1fr}}.hero{position:relative}
+.ln{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .06em .1em;margin:0 -.06em}
+.anim .ln .up{display:inline-block;transform:translateY(110%)}
+.ln .up{display:inline-block}
+.anim [data-stagger]>*{opacity:0}
+.marq{position:relative;z-index:2;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin:8px 0 0}
+.marq .track{display:flex;gap:36px;width:max-content;animation:mq 38s linear infinite;font-size:clamp(20px,3vw,34px);letter-spacing:-.03em;font-weight:500;color:#cfcfcf;white-space:nowrap}
+.marq i{font-style:normal;color:var(--mute);font-size:.6em;align-self:center}
+@keyframes mq{to{transform:translateX(-50%)}}
+.card,.posts a{position:relative}
+.card::before,.posts a::before{content:"";position:absolute;inset:0;background:radial-gradient(260px at var(--cx,50%) var(--cy,50%),rgba(255,255,255,.09),transparent 70%);opacity:0;transition:opacity .35s;pointer-events:none}
+.card:hover::before,.posts a:hover::before{opacity:1}
+.cue{position:absolute;left:50%;bottom:26px;width:1px;height:54px;background:linear-gradient(#fff,transparent);transform-origin:top;opacity:.5;animation:cue 2.6s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+@media (prefers-reduced-motion:reduce){.marq .track,.cue{animation:none}}
+@media (max-width:820px){.cue{display:none}}
+.nogl .stage{position:relative}
 .nogl .stage::after{content:"K";position:absolute;inset:12% 18%;display:grid;place-items:center;background:#f2f2f2;color:#000;border-radius:22%;font:600 min(16vw,140px)/1 Inter,sans-serif}
 @media (max-width:900px){.grid{grid-template-columns:1fr 1fr}.dev{grid-template-columns:1fr;gap:28px}.links a:not(.btn){display:none}}
 @media (max-width:820px){.hero .wrap{grid-template-columns:1fr}.stage{height:42vh}.steps{grid-template-columns:1fr;gap:28px}.pad{padding:84px 0}}
@@ -96,7 +112,7 @@ html.lenis{scroll-behavior:auto}
 <section class="hero" id="top"><div class="wrap">
   <div>
     <span class="tag rv">Android keyboard</span>
-    <h1 class="rv">Typing,<br><em>refined.</em></h1>
+    <h1><span class="ln"><span class="up">Typing,</span></span><br><span class="ln"><span class="up"><em>refined.</em></span></span></h1>
     <p class="lead rv">A quiet, minimal Android keyboard with a premium feel. Voice typing, a full emoji library, a real number pad, and an AI assistant that runs on your own free API key.</p>
     <div class="row rv">
       <a class="btn p" href="https://github.com/jakadwangdu/Kbrd/releases/latest/download/Kbrd-debug.apk" target="_blank" rel="noopener">Download APK
@@ -106,18 +122,20 @@ html.lenis{scroll-behavior:auto}
     <p class="fine rv">Free · Android 8.0 and newer · AI works out of the box</p>
   </div>
   <div class="stage" data-char="hero" aria-hidden="true"></div>
-</div></section>
+</div><div class="cue" aria-hidden="true"></div></section>
+
+<div class="marq" aria-hidden="true"><div class="track"><span>Minimal</span><i>✦</i><span>Fast</span><i>✦</i><span>Private</span><i>✦</i><span>Free AI</span><i>✦</i><span>Hindi and English</span><i>✦</i><span>Emoji</span><i>✦</i><span>Clipboard</span><i>✦</i><span>Minimal</span><i>✦</i><span>Fast</span><i>✦</i><span>Private</span><i>✦</i><span>Free AI</span><i>✦</i><span>Hindi and English</span><i>✦</i><span>Emoji</span><i>✦</i><span>Clipboard</span><i>✦</i></div></div>
 
 <section class="pad" id="features"><div class="wrap">
   <p class="eyebrow rv">Features</p>
   <h2 class="rv">Everything you need.<br><em>Nothing you don’t.</em></h2>
-  <div class="grid rv">
+  <div class="grid rv" data-stagger>
     <div class="card"><span class="n">01</span><h3>Minimal by design</h3><p>Flat matte keys, thin icons and true AMOLED black. Pick from six accent colors, or switch to a light theme.</p></div>
     <div class="card"><span class="n">02</span><h3>Instant response</h3><p>Keys react the moment you touch them. Hold Backspace and it keeps deleting until you let go.</p></div>
     <div class="card"><span class="n">03</span><h3>Emoji for everyone</h3><p>Packs for kids, teens, adults and seniors. Scroll through every category or search by name.</p></div>
     <div class="card"><span class="n">04</span><h3>Clipboard</h3><p>Text you copy is saved automatically, so you can paste it again later with one tap.</p></div>
     <div class="card"><span class="n">05</span><h3>Number pad and cursor</h3><p>A proper numpad, a comma where you expect it, and a spacebar you can slide to move the cursor.</p></div>
-    <div class="card"><span class="n">06</span><h3>Made to fit</h3><p>Resize keyboard height and key length, move it for one hand and set your own haptic strength. Changes reach the keyboard instantly.</p></div>
+    <div class="card"><span class="n">06</span><h3>Made to fit</h3><p>Resize keyboard height, key length and key thickness, move it for one hand and set your own haptic strength. Changes reach the keyboard instantly.</p></div>
     <div class="card"><span class="n">07</span><h3>Voice typing</h3><p>Speak in English or Hindi. Say “send”, “enter” or “bhej” and your message goes. Uses your phone’s speech service.</p></div>
     <div class="card"><span class="n">08</span><h3>AI assistant</h3><p>Fix, rewrite, translate or reply from the keyboard. Works out of the box, or bring your own free API key.</p></div>
     <div class="card cs"><span class="n">09</span><h3>AI in WhatsApp</h3><p>Deeper AI help for your chats, built right into Kbrd.</p><span class="soon">Coming soon</span></div>
@@ -130,7 +148,7 @@ html.lenis{scroll-behavior:auto}
   <div class="two rv">
     <div><p class="lead">Start instantly with Kbrd Free, an open-source model that needs no key, or paste your own free API key from Groq, OpenRouter or Google Gemini for more. Kbrd turns your keyboard into a writing assistant that works in every app.</p>
     <ul class="ticks"><li>Kbrd Free needs no key; your own key is encrypted on your phone</li><li>Text is sent only when you tap an AI action</li><li>Switched off in password fields</li><li>No Kbrd servers in between</li></ul></div>
-    <div class="acts" aria-label="AI actions"><span>Fix grammar</span><span>Rewrite</span><span>Shorter</span><span>Friendly</span><span>Formal</span><span>To English</span><span>To हिन्दी</span><span>Summarize</span><span>Add emoji</span><span>Reply to copied</span><span>Ask AI</span></div>
+    <div class="acts rv" data-stagger aria-label="AI actions"><span>Fix grammar</span><span>Rewrite</span><span>Shorter</span><span>Friendly</span><span>Formal</span><span>To English</span><span>To हिन्दी</span><span>Summarize</span><span>Add emoji</span><span>Reply to copied</span><span>Ask AI</span></div>
   </div>
 </div></section>
 
@@ -155,7 +173,7 @@ html.lenis{scroll-behavior:auto}
 <section class="pad" id="blog"><div class="wrap">
   <p class="eyebrow rv">From the blog</p>
   <h2 class="rv">Guides for a<br><em>better keyboard.</em></h2>
-  <div class="posts rv"><a href="https://jakadwangdu.github.io/Kbrd/blog/ai-keyboard-android-free-api-key.html"><span class="n" style="margin-bottom:0">Guide</span><h3>How to use AI on your Android keyboard for free</h3><p>Set up an AI assistant inside your Android keyboard with a free API key from Groq, OpenRouter or Google Gemini. A step-by-step guide for Kbrd.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/install-apk-safely-android.html"><span class="n" style="margin-bottom:0">Guide</span><h3>How to install an APK on Android safely</h3><p>A short safety checklist for installing an APK outside the Play Store: where to download, what to allow, what to check, and how to switch the setting off again.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/android-keyboard-tricks-type-faster.html"><span class="n" style="margin-bottom:0">Tips</span><h3>10 Android keyboard tricks to type faster</h3><p>Slide the spacebar, hold to delete, dictate in Hindi or English, use a number pad and more. Ten practical tips to speed up typing on Android.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/voice-typing-hindi-english-android.html"><span class="n" style="margin-bottom:0">Guide</span><h3>Voice typing in Hindi and English on Android</h3><p>How to dictate messages in Hindi and English on Android, say send to send them, and fix common voice typing problems.</p></a></div>
+  <div class="posts rv" data-stagger><a href="https://jakadwangdu.github.io/Kbrd/blog/ai-keyboard-android-free-api-key.html"><span class="n" style="margin-bottom:0">Guide</span><h3>How to use AI on your Android keyboard for free</h3><p>Set up an AI assistant inside your Android keyboard with a free API key from Groq, OpenRouter or Google Gemini. A step-by-step guide for Kbrd.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/install-apk-safely-android.html"><span class="n" style="margin-bottom:0">Guide</span><h3>How to install an APK on Android safely</h3><p>A short safety checklist for installing an APK outside the Play Store: where to download, what to allow, what to check, and how to switch the setting off again.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/android-keyboard-tricks-type-faster.html"><span class="n" style="margin-bottom:0">Tips</span><h3>10 Android keyboard tricks to type faster</h3><p>Slide the spacebar, hold to delete, dictate in Hindi or English, use a number pad and more. Ten practical tips to speed up typing on Android.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/voice-typing-hindi-english-android.html"><span class="n" style="margin-bottom:0">Guide</span><h3>Voice typing in Hindi and English on Android</h3><p>How to dictate messages in Hindi and English on Android, say send to send them, and fix common voice typing problems.</p></a></div>
   <p class="fine rv"><a href="https://jakadwangdu.github.io/Kbrd/blog/">Read all articles</a></p>
 </div></section>
 <section class="pad" id="faq" style="padding-top:0"><div class="wrap">
@@ -179,6 +197,7 @@ html.lenis{scroll-behavior:auto}
 <footer><div class="wrap"><span>© 2026 Shaurya</span><span><a href="https://jakadwangdu.github.io/Kbrd/blog/">Blog</a> · <a href="https://jakadwangdu.github.io/Kbrd/privacy.html">Privacy</a> · <a href="https://github.com/jakadwangdu/Kbrd" target="_blank" rel="noopener">GitHub</a></span></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (()=>{
@@ -190,8 +209,16 @@ addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY;if(!pend){pend=true
 const prog=()=>{bar.style.transform="scaleX("+scrollY/Math.max(1,rt.scrollHeight-innerHeight)+")"};addEventListener("scroll",prog,{passive:true});prog();
 if(window.Lenis&&!matchMedia("(prefers-reduced-motion:reduce)").matches){const L=new Lenis({lerp:.1});rt.classList.add("lenis");const raf=t=>{L.raf(t);requestAnimationFrame(raf)};requestAnimationFrame(raf);document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",e=>{const el=document.querySelector(a.getAttribute("href"));if(el){e.preventDefault();L.scrollTo(el,{offset:-72})}}))}
 const rv=[...document.querySelectorAll(".rv")];
-if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});rv.forEach(e=>io.observe(e))}else rv.forEach(e=>e.classList.add("in"));
+if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");stag(e.target);io.unobserve(e.target)}}),{threshold:.12});rv.forEach(e=>io.observe(e))}else rv.forEach(e=>e.classList.add("in"));
 
+const mm=q=>window.matchMedia?matchMedia(q).matches:false,rmo=mm("(prefers-reduced-motion:reduce)"),hasA=!!window.anime&&!rmo;
+if(!hasA||!("IntersectionObserver" in window))rt.classList.remove("anim");
+function stag(el){if(el.dataset.stagger===undefined||!hasA)return;anime({targets:el.children,opacity:[0,1],translateY:[26,0],delay:anime.stagger(70),duration:900,easing:"easeOutExpo"})}
+if(hasA){anime.timeline({easing:"easeOutExpo"}).add({targets:".ln .up",translateY:["110%","0%"],duration:1100,delay:anime.stagger(140,{start:150})})}
+if(!rmo&&mm("(hover:hover)")){
+  document.querySelectorAll(".btn.p,.btn.g").forEach(b=>{b.addEventListener("pointermove",e=>{const r=b.getBoundingClientRect();b.style.transform="translate("+(e.clientX-r.left-r.width/2)*.22+"px,"+(e.clientY-r.top-r.height/2)*.32+"px)"});b.addEventListener("pointerleave",()=>{b.style.transform=""})});
+  document.querySelectorAll(".card,.posts a").forEach(c=>c.addEventListener("pointermove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--cx",e.clientX-r.left+"px");c.style.setProperty("--cy",e.clientY-r.top+"px")}));
+}
 /*BUILD*/
 function rr(w,h,r){const s=new THREE.Shape(),x=-w/2,y=-h/2;s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s}
 function rbox(w,h,d,r,b,mat){const g=new THREE.ExtrudeGeometry(rr(w,h,r),{depth:d,bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:4,curveSegments:10});g.center();return new THREE.Mesh(g,mat)}
@@ -216,6 +243,9 @@ scene.add(new THREE.HemisphereLight(0xffffff,0x222222,.85));
 const kl=new THREE.DirectionalLight(0xffffff,1.1);kl.position.set(3,4,5);scene.add(kl);
 const rl=new THREE.DirectionalLight(0xffffff,.8);rl.position.set(-4,2,-3);scene.add(rl);
 const C=build(),G=C.G;G.visible=false;scene.add(G);
+const pn=140,pa=new Float32Array(pn*3);for(let i=0;i<pn;i++){pa[i*3]=(Math.random()-.5)*14;pa[i*3+1]=(Math.random()-.5)*8;pa[i*3+2]=(Math.random()-.5)*6-1}
+const pg=new THREE.BufferGeometry();pg.setAttribute("position",new THREE.BufferAttribute(pa,3));
+const pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0xffffff,size:.035,transparent:true,opacity:.45,depthWrite:false}));scene.add(pts);
 const anchors=[...document.querySelectorAll("[data-char]")],vis=2*Math.tan(THREE.MathUtils.degToRad(cam.fov/2))*cam.position.z,tmp=new THREE.Vector3(),ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
 const st={x:0,y:0,s:0,tx:0,ty:0,ts:0,hop:0,vy:0,mood:0,blink:0,nb:2,px:null,py:null,ry:0,rx:0,first:true};
 function size(){R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()}
@@ -243,6 +273,7 @@ function frame(t){
   C.mouth.scale.set(1+st.mood*.6,1+st.mood*.9,1);
   C.arms.forEach((a,i)=>{a.position.y=-.15+(rm?0:Math.sin(time*2+i*2)*.06)+st.hop*.4+st.mood*.15});
   C.keys.forEach((kg,i)=>{const d=kg.userData;d.a+=dt*(rm?.05:.35+st.mood*1.6);kg.position.set(Math.cos(d.a)*d.r*(1+st.mood*.15),d.y+(rm?0:Math.sin(time*1.2+i)*.1),Math.sin(d.a)*d.r*.55);kg.rotation.set(Math.sin(time*.8+i)*.3,Math.cos(time*.6+i)*.4,Math.sin(time*.5+i)*.2)});
+  pts.rotation.y=time*.03+st.ry*.15;pts.rotation.x=st.rx*.1;
   R.render(scene,cam)
 }
 requestAnimationFrame(frame);

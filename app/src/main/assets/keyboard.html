@@ -152,10 +152,18 @@ body{touch-action:manipulation;overscroll-behavior:none;-webkit-font-smoothing:a
 #aist{min-height:18px;color:var(--mute);font-size:12px;margin:10px 0 0}
 .body{gap:0}
 .row{gap:0;height:calc(var(--kh) + 8px)}
-.k{border:solid transparent;border-width:4px 3px;background-clip:padding-box;border-radius:12px;font-size:20px;font-weight:400;box-shadow:none;transition:transform .16s cubic-bezier(.2,.8,.2,1),background-color .16s}
+.k{border:solid transparent;border-width:calc(var(--kg,3px) + 1px) var(--kg,3px);background-clip:padding-box;border-radius:12px;font-size:20px;font-weight:400;box-shadow:none;transition:transform .16s cubic-bezier(.2,.8,.2,1),background-color .16s}
 .tabs .k{border-width:3px;height:44px}
 .np{gap:0}.np .k{height:auto}
 .aic{border-radius:16px}
+html.appmode body{display:block;overflow-y:auto;height:auto;min-height:100%}
+html.appmode .stage{justify-content:flex-start;padding:10px 16px 28px;gap:14px;height:auto}
+html.appmode .phone,html.appmode #theme,html.appmode .mark{display:none}
+html.appmode .bar{width:100%;max-width:520px;margin:0 auto;gap:12px}
+html.appmode .ctl{width:100%;justify-content:space-between}
+html.appmode #pop{display:block;position:static;flex:1 1 100%;width:100%;max-height:none;overflow:visible;margin:0;border-radius:18px}
+html.appmode #aibtn{background:var(--accent);color:var(--ink);font-weight:500;padding:8px 18px}
+#afit{width:100%}
 .k{border-radius:11px;font-size:20px;font-weight:400;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 0 rgba(0,0,0,.5)}
 .k.fn{font-size:14px}.k.sp{flex:4}.k svg{stroke-width:1.6}
 .body{gap:7px}.row{gap:5px}
@@ -221,7 +229,7 @@ html.ime body{background:var(--kb)}
 <div id="aisheet" hidden></div>
 <script>
 const $=s=>document.querySelector(s),root=document.documentElement;
-if(window.Android)root.classList.add("ime");
+if(window.Android)root.classList.add("ime");if(window.AppBridge)root.classList.add("appmode");
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const L=["qwertyuiop","asdfghjkl","zxcvbnm"],S=["1234567890","@#$%&-+()/","*\"':;!?"];
 const W=["the","thanks","tomorrow","hello","how","you","are","see","soon","love","please","great","good","morning","today","okay","maybe","tonight"];
@@ -311,10 +319,10 @@ let sugH="";const SUG={set innerHTML(h){if(h!==sugH){sugH=h;$("#sug").innerHTML=
 let cur=-1;const C=()=>cur<0||cur>txt.length?txt.length:cur;
 function ins(s){if(IME){txt+=s;return}const c=C();txt=txt.slice(0,c)+s+txt.slice(c);cur=c+s.length}
 const IME=!!window.Android;let lastTxt="";
-function sync(){let i=0;const a=lastTxt,b=txt,n=Math.min(a.length,b.length);while(i<n&&a[i]===b[i])i++;const del=a.length-i,ins=b.slice(i);if(del||ins)Android.edit(del,ins);lastTxt=b;if(b.length>300)txt=lastTxt=b.slice(-100)}
+function sync(){let i=0;const a=lastTxt,b=txt,n=Math.min(a.length,b.length);while(i<n&&a[i]===b[i])i++;const del=a.length-i,ins=b.slice(i);if(del||ins){Android.edit(del,ins,bz);bz=0}lastTxt=b;if(b.length>300)txt=lastTxt=b.slice(-100)}
 let lm=-1,la=-1;
 function out(){
-  if(IME)sync();
+  if(IME){sync();return tail()}
   const c=document.querySelector("#msg .text .caret"),p=c&&c.previousSibling;
   const n=c&&c.nextSibling;if(p&&p.nodeType===3&&n&&n.nodeType===3&&txt&&lm===msgs.length&&la===atts.length){const k=C();p.nodeValue=txt.slice(0,k);n.nodeValue=txt.slice(k);$("#msg").scrollTop=1e9;return tail()}
   lm=msgs.length;la=atts.length;outFull();
@@ -327,10 +335,12 @@ function outFull(){
   if(!txt&&!atts.length){const s=document.createElement("span");s.className="ph";s.textContent="Type a message";t.append(s)}else t.append(document.createTextNode(txt.slice(0,C())));
   const c=document.createElement("i");c.className="caret";t.append(c);if(txt)t.append(document.createTextNode(txt.slice(C())));m.append(t);m.scrollTop=m.scrollHeight;
   tail()}
-function tail(){const f=(txt.match(/[a-z']+$/i)||[""])[0].toLowerCase(),s=(capOK&&f?W.filter(w=>w.startsWith(f)&&w!==f):[]).slice(0,3);
+let sugT=0;
+function tail(){const ns=capOK&&/(^|[.!?]\s|\n)$/.test(txt);if(ns!==shift){shift=ns;applyShift()}clearTimeout(sugT);sugT=setTimeout(sugRender,80)}
+function sugRender(){const f=(txt.match(/[a-z']+$/i)||[""])[0].toLowerCase(),s=(capOK&&f?W.filter(w=>w.startsWith(f)&&w!==f):[]).slice(0,3);
   while(s.length<3)s.push(capOK?["I","The","Thanks"][s.length]:"");
   SUG.innerHTML=`<button class="ic" data-k="ai" aria-label="AI assistant">${I.ai}</button><button class="ic" data-k="clip" aria-label="Clipboard">${I.clip}</button>${s.map(w=>`<button data-w="${w}">${w}</button>`).join("")}<button class="ic" data-k="mic" aria-label="Voice typing">${I.mic}</button>`;
-  const ns=capOK&&/(^|[.!?]\s|\n)$/.test(txt);if(ns!==shift){shift=ns;applyShift()}
+  
 }
 function send(){if(IME){Android.enter();txt=lastTxt="";return out()}const t=txt.trim();if(!t&&!atts.length)return;msgs.push({t,i:atts,n:1});txt="";cur=-1;atts=[];out()}
 function press(k){
@@ -349,10 +359,10 @@ function press(k){
   if(k==="sym2")return;
   typing();
   if(k==="en")return send();
-  if(k==="bs"){if(IME){Android.back();lastTxt=txt.slice(0,-1);txt=txt.slice(0,-1)}else{const c=C();if(c>0){txt=txt.slice(0,c-1)+txt.slice(c);cur=c-1}}}else ins(k==="sp"?" ":(mode==="abc"&&shift?k.toUpperCase():k));
+  if(k==="bs"){if(IME){Android.back(bz);bz=0;lastTxt=txt.slice(0,-1);txt=txt.slice(0,-1)}else{const c=C();if(c>0){txt=txt.slice(0,c-1)+txt.slice(c);cur=c-1}}}else ins(k==="sp"?" ":(mode==="abc"&&shift?k.toUpperCase():k));
   out();
 }
-function typing(){kb.classList.add("typing");clearTimeout(window._ty);window._ty=setTimeout(()=>kb.classList.remove("typing"),1400)}
+function typing(){window._lt=Date.now();kb.classList.add("typing");clearTimeout(window._ty);window._ty=setTimeout(()=>kb.classList.remove("typing"),1400)}
 const rd=b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(b)});
 function addClip(c){if(c.t&&!c.t.trim())return;clips=clips.filter(x=>!(c.t&&x.t===c.t));clips.unshift(c);clips=clips.slice(0,30);persist();if(mode==="clip")body();toast("Saved to clipboard")}
 async function saveClip(){
@@ -406,9 +416,11 @@ Accent<div class="r">${AC.map((a,i)=>`<button class="dot" data-ac="${i}" style="
 Emoji style<div class="r"><button data-es="a">Android</button><button data-es="s">System</button></div>
 Keyboard height<div class="r"><input type="range" id="sh" min="40" max="76" step="1" value="54" aria-label="Key height" style="width:100%"></div>
 Key length<div class="r"><input type="range" id="sw" min="70" max="100" step="1" value="100" aria-label="Keyboard width" style="width:100%"></div>
+<div class="r"><button id="afit">Auto-fit to my phone</button></div>
 Position<div class="r"><button data-pos="l">Left</button><button data-pos="c">Center</button><button data-pos="r">Right</button></div>
-Haptic strength (0 = off)<div class="r"><input type="range" id="hv" min="0" max="100" step="5" value="50" aria-label="Haptic strength" style="width:100%"></div>`;
-const CFG={theme:"amoled",ac:0,es:"a",hv:50};
+Haptic strength (0 = off)<div class="r"><input type="range" id="hv" min="0" max="100" step="5" value="50" aria-label="Haptic strength" style="width:100%"></div>
+Key thickness (thin to thick)<div class="r"><input type="range" id="kt" min="0" max="100" step="5" value="55" aria-label="Key thickness" style="width:100%"></div>`;
+const CFG={theme:"amoled",ac:0,es:"a",hv:50,kt:55,manual:false};
 const EFA='"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji"',EFS='"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji"';
 const mark=()=>{document.querySelectorAll("#pop [data-tm]").forEach(b=>b.classList.toggle("on",b.dataset.tm===root.dataset.theme));document.querySelectorAll("#pop [data-ac]").forEach(b=>b.classList.toggle("on",+b.dataset.ac===CFG.ac));document.querySelectorAll("#pop [data-es]").forEach(b=>b.classList.toggle("on",b.dataset.es===CFG.es))};mark();
 $("#theme").addEventListener("click",()=>{const o=$("#pop").classList.toggle("on");$("#theme").setAttribute("aria-expanded",o)});
@@ -432,7 +444,7 @@ function applySz(quiet){
   $("#sh").value=SZ.h;$("#sw").value=SZ.w;
   document.querySelectorAll("#pop [data-pos]").forEach(b=>b.classList.toggle("on",b.dataset.pos===SZ.p));
   document.querySelectorAll("#sizes button").forEach(x=>x.classList.toggle("on",+x.dataset.h===SZ.h));
-  if(!quiet)saveCfg();
+  if(!quiet){CFG.manual=true;saveCfg()}
   fitH();
 }
 $("#sh").oninput=e=>{SZ.h=+e.target.value;applySz()};
@@ -444,8 +456,12 @@ document.addEventListener("pointermove",e=>{if(!sp)return;if(!sp.drag&&Math.abs(
 function endSp(e){if(!sp)return;const s=sp;sp=null;s.el.classList.remove("drag","on");s.el.textContent="Kbrd"}
 ["pointerup","pointercancel"].forEach(ev=>document.addEventListener(ev,endSp));
 kb.addEventListener("lostpointercapture",stopR);addEventListener("blur",stopR);document.addEventListener("visibilitychange",stopR);
-function buzz(){const h=CFG.hv;if(!h)return;try{if(IME&&Android.tick)Android.tick(h);else if(window.AppBridge&&AppBridge.buzz)AppBridge.buzz(h);else if(navigator.vibrate)navigator.vibrate(Math.round(4+h*.12))}catch(_){}}
+let bz=0;function flushBz(){if(bz){try{Android.tick(bz)}catch(_){}bz=0}}
+function buzz(){const h=CFG.hv;if(!h)return;try{if(IME){bz=h;queueMicrotask(flushBz)}else if(window.AppBridge&&AppBridge.buzz)AppBridge.buzz(h);else if(navigator.vibrate)navigator.vibrate(Math.round(4+h*.12))}catch(_){}}
 $("#hv").oninput=e=>{CFG.hv=+e.target.value;saveCfg();buzz()};
+function thick(){document.documentElement.style.setProperty("--kg",(7*(100-CFG.kt)/100).toFixed(1)+"px")}
+$("#kt").oninput=e=>{CFG.kt=+e.target.value;thick();saveCfg()};
+$("#afit").onclick=()=>{CFG.manual=false;autoFit(true);saveCfg()};
 const AISYS="You are Kbrd, an assistant inside a phone keyboard. Reply with only the final text to insert: no preface, no quotes, no markdown. ";
 const AIA=[{id:"fix",t:"Fix grammar",s:"Fix spelling and grammar. Keep the meaning, tone and language."},{id:"rewrite",t:"Rewrite",s:"Rewrite the text so it is clearer and more natural."},{id:"short",t:"Shorter",s:"Make the text shorter and keep the key points."},{id:"friendly",t:"Friendly",s:"Rewrite the text in a warm, friendly tone."},{id:"formal",t:"Formal",s:"Rewrite the text in a polite, professional tone."},{id:"en",t:"To English",s:"Translate the text into natural English."},{id:"hi",t:"To हिन्दी",s:"Translate the text into natural Hindi."},{id:"sum",t:"Summarize",s:"Summarize the text in one or two sentences."},{id:"emoji",t:"Add emoji",s:"Add a few fitting emoji to the text without changing the words."},{id:"reply",t:"Reply to copied",s:"Write a reply to the copied message, following the user's draft or intent and matching the message's tone.",clip:1},{id:"ask",t:"Ask AI",s:"Do what the user asks. Be concise and practical."}];
 let ai={st:"idle"},aiReq=0,lastAct=null;
@@ -492,9 +508,16 @@ $("#aitest").onclick=()=>{if(!AB)return;AB.aiSave(JSON.stringify({provider:$("#a
 $("#aiload").onclick=()=>{if(!AB)return;aiSt("Loading models…");AB.aiModels($("#aib").value.trim(),$("#aik").value.trim())};
 $("#aiclr").onclick=()=>{if(!AB)return;AB.aiClear();aiFill({provider:$("#aip").value,base:$("#aib").value,model:$("#aim").value});aiSt("Key removed.")};
 window.aiCb=function(t,p){if(t==="models"){let l=[];try{l=JSON.parse(p)}catch(_){}$("#aimods").innerHTML=l.slice(0,400).map(m=>`<option value="${esc(m)}">`).join("");aiSt("Loaded "+l.length+" models. Tap the Model box to choose one.")}else aiSt(p)};
+function autoFit(force,skip){
+  if(CFG.manual&&!force)return;
+  let d={};try{d=JSON.parse(IME?Android.device():(AB&&AB.device?AB.device():"{}"))}catch(_){}
+  const h=d.h||800,w=d.w||400,t=Math.max(250,Math.min(340,h*.37));
+  SZ.h=Math.round(Math.max(40,Math.min(66,(t-96)/4)));SZ.w=w>600?Math.round(Math.max(55,Math.min(100,520/w*100))):100;SZ.p="c";
+  if(!skip)applySz(true)
+}
 let capOK=true;
 window.seedCtx=function(s,ok,m){
-  s=s||"";if(ok!==undefined)capOK=ok;
+  s=s||"";if(m===undefined&&ok===undefined&&Date.now()-(window._lt||0)<500)return;if(ok!==undefined)capOK=ok;
   if(m&&mode!==m){stopV();stopR();mode=m;body()}
   if(!(s.length<=txt.length&&txt.slice(txt.length-s.length)===s&&(s||!txt))){txt=lastTxt=s;cur=-1}
   out()
@@ -506,11 +529,11 @@ window.voiceEvt=function(t,s){
 };
 window.applyCfg=function(c){
   if(c.theme)CFG.theme=c.theme;if(typeof c.ac==="number")CFG.ac=c.ac;if(c.es)CFG.es=c.es;
-  if(typeof c.hv==="number"){CFG.hv=c.hv;$("#hv").value=c.hv}if(c.h)SZ.h=+c.h;if(c.w)SZ.w=+c.w;if(c.p)SZ.p=c.p;
+  if(typeof c.hv==="number"){CFG.hv=c.hv;$("#hv").value=c.hv}if(typeof c.kt==="number"){CFG.kt=c.kt;$("#kt").value=c.kt}if(typeof c.manual==="boolean")CFG.manual=c.manual;if(CFG.manual){if(c.h)SZ.h=+c.h;if(c.w)SZ.w=+c.w;if(c.p)SZ.p=c.p}else autoFit(false,true);
   root.dataset.theme=CFG.theme;root.style.setProperty("--accent",AC[CFG.ac][0]);root.style.setProperty("--ink",AC[CFG.ac][1]);root.style.setProperty("--ef",CFG.es==="a"?EFA:EFS);
-  mark();applySz(true);
+  thick();mark();applySz(true);
 };
-try{applyCfg(JSON.parse(localStorage.getItem("km_cfg")||"{}"))}catch(_){applySz(true)}
+try{applyCfg(JSON.parse(localStorage.getItem("km_cfg")||"{}"))}catch(_){autoFit(false)}
 if(window.AppBridge)saveCfg();
 body();out();
 </script>
