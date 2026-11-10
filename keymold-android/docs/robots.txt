@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jakadwangdu.github.io/Kbrd/sitemap.xml
