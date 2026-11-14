@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kbrd: minimalist Android keyboard with AI you control</title>
+<meta name="description" content="Kbrd is a minimalist Android keyboard with voice typing, a full emoji library and an AI assistant that uses your own free API key. Download the APK."><link rel="canonical" href="https://jakadwangdu.github.io/Kbrd/"><link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDggMTA4Ij48cmVjdCB3aWR0aD0iMTA4IiBoZWlnaHQ9IjEwOCIgcng9IjI2IiBmaWxsPSIjMDAwIi8+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTQ1LDM0IGgxOCBhMTEsMTEgMCAwIDEgMTEsMTEgdjE4IGExMSwxMSAwIDAgMSAtMTEsMTEgaC0xOCBhMTEsMTEgMCAwIDEgLTExLC0xMSB2LTE4IGExMSwxMSAwIDAgMSAxMSwtMTEgeiIvPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI0LjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTTQ2LDQ0IEw0Niw2NCBNNDYsNTQgTDYwLDQ0IE00OS41LDUzIEw2MCw2NCIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik03MywyNiBMNzQuNCwzMC42IEw3OSwzMiBMNzQuNCwzMy40IEw3MywzOCBMNzEuNiwzMy40IEw2NywzMiBMNzEuNiwzMC42IFoiLz48L3N2Zz4="><meta property="og:type" content="website"><meta property="og:site_name" content="Kbrd"><meta property="og:title" content="Kbrd: minimalist Android keyboard with AI you control"><meta property="og:description" content="Kbrd is a minimalist Android keyboard with voice typing, a full emoji library and an AI assistant that uses your own free API key. Download the APK."><meta property="og:url" content="https://jakadwangdu.github.io/Kbrd/"><meta property="og:image" content="https://jakadwangdu.github.io/Kbrd/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Kbrd: minimalist Android keyboard with AI you control"><meta name="twitter:description" content="Kbrd is a minimalist Android keyboard with voice typing, a full emoji library and an AI assistant that uses your own free API key. Download the APK."><meta name="twitter:image" content="https://jakadwangdu.github.io/Kbrd/og.png">
+<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "Kbrd", "url": "https://jakadwangdu.github.io/Kbrd/"}, {"@type": "SoftwareApplication", "name": "Kbrd", "alternateName": "Kbrd keyboard", "operatingSystem": "Android 8.0+", "applicationCategory": "UtilitiesApplication", "description": "Kbrd is a minimalist Android keyboard with voice typing, a full emoji library and an AI assistant that uses your own free API key. Download the APK.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "downloadUrl": "https://github.com/jakadwangdu/Kbrd/releases/latest/download/Kbrd-debug.apk", "url": "https://jakadwangdu.github.io/Kbrd/", "author": {"@type": "Person", "name": "Shaurya", "url": "https://github.com/jakadwangdu"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Kbrd?", "acceptedAnswer": {"@type": "Answer", "text": "Kbrd is a minimalist Android keyboard with a full emoji library, a clipboard, a number pad, voice typing in English and Hindi, adjustable size and haptics, and an optional AI assistant."}}, {"@type": "Question", "name": "Is Kbrd free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Kbrd is free to download as an APK from the official GitHub releases page."}}, {"@type": "Question", "name": "How does the AI assistant work?", "acceptedAnswer": {"@type": "Answer", "text": "Kbrd Free works out of the box with an open-source model hosted by OVHcloud, with no key. You can also paste your own API key from a provider such as Groq, OpenRouter or Google Gemini. When you tap an AI action, Kbrd sends only the selected text or the text before your cursor to the service and shows you the result before replacing anything."}}, {"@type": "Question", "name": "Which AI models can I use?", "acceptedAnswer": {"@type": "Answer", "text": "The built-in Kbrd Free option uses an open-source model and allows about 2 requests a minute. With your own key you can use any model from an OpenAI-compatible provider, including free tiers and open-source models on Groq, OpenRouter and Together."}}, {"@type": "Question", "name": "Is my typing private?", "acceptedAnswer": {"@type": "Answer", "text": "Kbrd has no servers and no analytics. It goes online only when you tap an AI action, never runs in password fields, and stores your API key encrypted with the Android Keystore."}}, {"@type": "Question", "name": "How do I install the APK?", "acceptedAnswer": {"@type": "Answer", "text": "Download Kbrd-debug.apk, allow installs from your browser when Android asks, open the file, then open Kbrd and follow the two setup steps to enable and switch to the keyboard."}}, {"@type": "Question", "name": "Does Kbrd support Hindi voice typing?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Choose हिन्दी in the voice panel, allow the microphone and speak. Saying “send” or “bhej” sends your message. Voice recognition uses your phone’s own speech service."}}]}]}</script>
+<script>try{var t=localStorage.getItem("kbrd-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}document.documentElement.classList.add("js");if(window.matchMedia&&!matchMedia("(prefers-reduced-motion:reduce)").matches)document.documentElement.classList.add("anim")</script>
+<style>:root{--bg:#fafaf9;--fg:#0a0a0a;--mute:#585858;--line:rgba(0,0,0,.13);--card:#fff;--card2:#efefed;--ib:#0a0a0a;--if:#fff;--glow:rgba(0,0,0,.06);color-scheme:light dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--fg:#fff;--mute:#9a9a9a;--line:rgba(255,255,255,.14);--card:#000;--card2:#0d0d0d;--ib:#fff;--if:#000;--glow:rgba(255,255,255,.07)}}
+:root[data-theme="dark"]{--bg:#000;--fg:#fff;--mute:#9a9a9a;--line:rgba(255,255,255,.14);--card:#000;--card2:#0d0d0d;--ib:#fff;--if:#000;--glow:rgba(255,255,255,.07);color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+html.tt *{transition:background-color .4s,color .4s,border-color .4s,fill .4s!important}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+html.lenis{scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(520px at var(--mx,60%) var(--my,25%),var(--glow),transparent 70%)}
+a{color:inherit}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+section,footer,.marq{position:relative;z-index:2}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+#bar{position:fixed;top:0;left:0;right:0;height:2px;background:var(--fg);transform-origin:0 0;transform:scaleX(0);z-index:50}
+nav{position:fixed;top:0;left:0;right:0;z-index:40;padding:calc(14px + env(safe-area-inset-top,0px)) 0 14px;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+nav.s{background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:600;letter-spacing:-.02em;text-decoration:none;font-size:18px;display:flex;align-items:center}
+.mk{vertical-align:-6px;margin-right:8px}.mk path:nth-child(odd){fill:var(--fg)}.mk path:nth-child(2){stroke:var(--bg)}
+.links{display:flex;align-items:center;gap:20px;font-size:14px;color:var(--mute)}
+.links a{text-decoration:none;transition:color .2s}.links a:hover{color:var(--fg)}
+.tg{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.tg button{width:30px;height:30px;border:0;border-radius:50%;background:none;color:var(--mute);display:grid;place-items:center;cursor:pointer;transition:background .2s,color .2s}
+.tg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.tg svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-weight:500;font-size:15px;text-decoration:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.p{background:var(--fg);color:var(--bg)}.btn.p:hover{opacity:.88}
+.btn.g{border:1px solid var(--line);color:var(--fg)}.btn.g:hover{border-color:var(--fg)}
+.btn.s{padding:9px 18px;font-size:14px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:120px 0 64px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;width:100%}
+.stage{height:min(72vh,600px);pointer-events:none}
+.herocol{display:flex;flex-direction:column;align-items:center}
+.herocol .stage{width:100%;height:min(58vh,520px);pointer-events:auto;touch-action:pan-y;cursor:grab}
+.hud{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.hud button{border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:999px;padding:7px 14px;font:inherit;font-size:13px;cursor:pointer;transition:background .2s,color .2s}
+.hud button:hover{border-color:var(--fg)}
+.hud button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.hint{margin:12px 0 0;font-size:12px;letter-spacing:.04em;color:var(--mute);text-align:center}
+.tag{display:inline-block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:6px 14px;margin-bottom:28px}
+h1{font-size:clamp(48px,8.6vw,124px);line-height:.94;letter-spacing:-.045em;font-weight:500;margin:0 0 26px}
+h1 em,h2 em{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-style:italic;letter-spacing:-.02em}
+.ln{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .06em .1em;margin:0 -.06em}
+.ln .up{display:inline-block}.anim .ln .up{transform:translateY(110%)}
+.lead{font-size:clamp(17px,1.5vw,20px);color:var(--mute);max-width:520px;margin:0 0 36px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.fine{font-size:13px;color:var(--mute);margin-top:18px}
+.pad{padding:120px 0}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0 0 18px}
+h2{font-size:clamp(34px,5.2vw,72px);line-height:1;letter-spacing:-.04em;font-weight:500;margin:0 0 56px;max-width:760px}
+.marq{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 0;margin:8px 0 0}
+.marq .track{display:flex;gap:36px;width:max-content;animation:mq 38s linear infinite;font-size:clamp(20px,3vw,34px);letter-spacing:-.03em;font-weight:500;color:color-mix(in srgb,var(--fg) 82%,transparent);white-space:nowrap}
+.marq i{font-style:normal;color:var(--mute);font-size:.6em;align-self:center}
+@keyframes mq{to{transform:translateX(-50%)}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.card{position:relative;background:var(--card);padding:34px 30px 38px;min-height:240px;transition:background .35s}
+.card:hover{background:var(--card2)}
+.card.cs{background:repeating-linear-gradient(135deg,var(--card) 0 10px,var(--card2) 10px 20px)}
+.card::before,.posts a::before{content:"";position:absolute;inset:0;background:radial-gradient(260px at var(--cx,50%) var(--cy,50%),var(--glow),transparent 70%);opacity:0;transition:opacity .35s;pointer-events:none}
+.card:hover::before,.posts a:hover::before{opacity:1}
+.n{font-size:12px;letter-spacing:.16em;color:var(--mute);display:block;margin-bottom:46px}
+.card h3{font-size:21px;letter-spacing:-.02em;font-weight:500;margin:0 0 10px}
+.card p{margin:0;color:var(--mute);font-size:15px}
+.soon{display:inline-block;margin-top:14px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--fg)}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+.ticks{list-style:none;margin:0;padding:0}.ticks li{padding:12px 0;border-top:1px solid var(--line)}
+.acts{display:flex;flex-wrap:wrap;gap:10px}.acts span{border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.steps li{list-style:none;border-top:1px solid var(--line);padding-top:22px}.steps ol{margin:0;padding:0;display:contents}
+.steps b{display:block;font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;font-size:44px;line-height:1;margin-bottom:14px}
+.steps p{margin:0;color:var(--mute)}
+.light{background:var(--ib);color:var(--if)}
+.light .eyebrow,.light .lead,.light p{color:color-mix(in srgb,var(--if) 68%,transparent)}
+.dev{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end}
+.dev h2{margin-bottom:0}.dev p{font-size:18px;margin:0 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips a{border:1px solid var(--if);border-radius:999px;padding:10px 18px;font-size:14px;text-decoration:none;transition:background .2s,color .2s}
+.chips a:hover{background:var(--if);color:var(--ib)}
+.light a:focus-visible{outline-color:var(--if)}
+.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.posts a{position:relative;background:var(--card);padding:30px;text-decoration:none;transition:background .3s}
+.posts a:hover{background:var(--card2)}
+.posts h3{font-size:20px;letter-spacing:-.02em;font-weight:500;margin:10px 0 8px}.posts p{margin:0;color:var(--mute);font-size:15px}
+details{border-top:1px solid var(--line);padding:20px 0}details:last-of-type{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-size:18px;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";color:var(--mute)}details[open] summary::after{content:"\2212"}
+details p{color:var(--mute);margin:12px 0 0;max-width:720px}
+.cta{text-align:center;padding:40px 0 140px}
+.cta .stage{height:min(42vh,380px);margin-bottom:8px}
+.cta h2{margin:0 auto 34px;max-width:none}.cta .row{justify-content:center}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--mute);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.cue{position:absolute;left:50%;bottom:26px;width:1px;height:54px;background:linear-gradient(var(--fg),transparent);transform-origin:top;opacity:.5;animation:cue 2.6s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0)}55%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+.anim [data-stagger]>*{opacity:0}
+.nogl .stage{position:relative}
+.nogl .stage::after{content:"K";position:absolute;inset:12% 18%;display:grid;place-items:center;background:var(--fg);color:var(--bg);border-radius:22%;font:600 min(16vw,140px)/1 Inter,sans-serif}
+@media (max-width:900px){.grid{grid-template-columns:1fr 1fr}.dev{grid-template-columns:1fr;gap:28px}.links a:not(.btn){display:none}.grid .card:last-child{grid-column:1/-1}}
+@media (max-width:820px){.hero .wrap{grid-template-columns:1fr}.herocol .stage{height:40vh}.steps{grid-template-columns:1fr;gap:28px}.pad{padding:84px 0}.two,.posts{grid-template-columns:1fr}.cue{display:none}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}.card{min-height:0}.n{margin-bottom:28px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js .rv{transition:none;transform:none}.btn{transition:none}.marq .track,.cue{animation:none}}
+
+:root{--ac:#FFD60A}
+::selection{background:var(--ac);color:#000}
+body::after{display:none}
+nav.s{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:2px solid var(--fg)}
+.logo{font-weight:800;letter-spacing:-.03em}
+.tg{border:2px solid var(--fg);border-radius:12px;padding:2px}.tg button{border-radius:9px}
+.tg button[aria-pressed="true"]{background:var(--ac);color:#000}
+.btn{border:2px solid var(--fg);border-radius:12px;box-shadow:4px 4px 0 var(--fg);font-weight:700;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--fg)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--fg)}
+.btn.p{background:var(--ac);color:#000}.btn.p:hover{opacity:1}
+.btn.g{background:var(--bg);color:var(--fg)}.btn.g:hover{border-color:var(--fg)}
+.btn.s{padding:8px 16px;box-shadow:3px 3px 0 var(--fg)}
+.tag{background:var(--ac);color:#000;border:2px solid var(--fg);border-radius:8px;font-weight:700;transform:rotate(-2deg);box-shadow:3px 3px 0 var(--fg)}
+h1,h2{font-weight:800;letter-spacing:-.05em}
+h1 em,h2 em{background:linear-gradient(transparent 60%,var(--ac) 60%);color:var(--fg);padding:0 .06em}
+.eyebrow,.hint,.n{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700}
+.eyebrow{color:var(--fg);letter-spacing:.14em}.eyebrow::before{content:"// "}
+.hero{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px}
+.marq{background:var(--ac);border-top:2px solid var(--fg);border-bottom:2px solid var(--fg);margin:0}
+.marq .track{color:#000;font-weight:800;text-transform:uppercase}.marq i{color:#000}
+.grid,.posts{gap:20px;background:none;border:0;border-radius:0;overflow:visible}
+.card,.posts a{border:2px solid var(--fg);border-radius:14px;box-shadow:6px 6px 0 var(--fg);transition:transform .15s,box-shadow .15s}
+.card:hover,.posts a:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--fg);background:var(--card)}
+.card::before,.posts a::before{display:none}
+.card.cs{border-style:dashed;background:var(--card)}
+.n{display:inline-block;border:2px solid var(--fg);border-radius:6px;padding:2px 8px;color:var(--fg);letter-spacing:.06em;margin-bottom:34px}
+.soon{background:var(--ac);color:#000;border:2px solid var(--fg);font-weight:700}
+.acts span{border:2px solid var(--fg);border-radius:10px;font-weight:600;box-shadow:3px 3px 0 var(--fg);background:var(--bg)}
+.ticks li{border-top:2px solid var(--fg);font-weight:600}
+.steps li{border-top:2px solid var(--fg)}
+.steps b{font-style:normal;font-family:Inter,system-ui,sans-serif;font-weight:800;font-size:56px;letter-spacing:-.05em}
+.light{border-top:2px solid var(--fg);border-bottom:2px solid var(--fg)}
+.chips a{border:2px solid var(--if);border-radius:10px;font-weight:600;box-shadow:3px 3px 0 var(--if)}
+.chips a:hover{background:var(--ac);color:#000}
+details{border:2px solid var(--fg);border-radius:12px;padding:16px 18px;margin-bottom:14px;box-shadow:4px 4px 0 var(--fg);background:var(--card)}
+details:last-of-type{border-bottom:2px solid var(--fg)}
+summary{font-weight:700}summary::after{font-weight:800;color:var(--fg)}
+.hud button{border:2px solid var(--fg);border-radius:10px;font-weight:600;background:var(--bg);box-shadow:2px 2px 0 var(--fg)}
+.hud button[aria-pressed="true"]{background:var(--ac);color:#000}
+.hint{text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+footer{border-top:2px solid var(--fg)}
+#bar{background:var(--ac);height:4px;border-bottom:2px solid var(--fg)}
+</style>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="bar"></div>
+<nav><div class="wrap">
+  <a class="logo" href="#top"><svg class="mk" viewBox="0 0 108 108" width="26" height="26" aria-hidden="true"><path fill="#fff" d="M45,34 h18 a11,11 0 0 1 11,11 v18 a11,11 0 0 1 -11,11 h-18 a11,11 0 0 1 -11,-11 v-18 a11,11 0 0 1 11,-11 z"/><path fill="none" stroke="#000" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round" d="M46,44 L46,64 M46,54 L60,44 M49.5,53 L60,64"/><path fill="#fff" d="M73,26 L74.4,30.6 L79,32 L74.4,33.4 L73,38 L71.6,33.4 L67,32 L71.6,30.6 Z"/></svg> Kbrd</a>
+  <div class="links"><a href="#features">Features</a><a href="#ai">AI</a><a href="#install">Install</a><a href="#developer">Developer</a><a href="https://jakadwangdu.github.io/Kbrd/blog/">Blog</a><div class="tg" role="group" aria-label="Color theme"><button type="button" data-theme-set="system" aria-label="System theme" title="System" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></button><button type="button" data-theme-set="light" aria-label="Light theme" title="Light" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button type="button" data-theme-set="dark" aria-label="Dark theme" title="Dark" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button></div><a class="btn p s" href="https://github.com/jakadwangdu/Kbrd/releases/latest/download/Kbrd-debug.apk" target="_blank" rel="noopener">Download</a></div>
+</div></nav>
+
+<section class="hero" id="top"><div class="wrap">
+  <div>
+    <span class="tag rv">Android keyboard</span>
+    <h1><span class="ln"><span class="up">Typing,</span></span><br><span class="ln"><span class="up"><em>refined.</em></span></span></h1>
+    <p class="lead rv">A quiet, minimal Android keyboard with a premium feel. Voice typing, a full emoji library, a real number pad, and an AI assistant that runs on your own free API key.</p>
+    <div class="row rv">
+      <a class="btn p" href="https://github.com/jakadwangdu/Kbrd/releases/latest/download/Kbrd-debug.apk" target="_blank" rel="noopener">Download APK
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg></a>
+      <a class="btn g" href="https://github.com/jakadwangdu/Kbrd" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+    <p class="fine rv">Free · Android 8.0 and newer · AI works out of the box</p>
+  </div>
+  <div class="herocol"><div class="stage" data-char="hero" aria-hidden="true"></div><div class="hud" role="group" aria-label="Character mood"><button type="button" data-mood="happy" aria-pressed="true">Happy</button><button type="button" data-mood="sleepy" aria-pressed="false">Sleepy</button><button type="button" data-mood="hyper" aria-pressed="false">Hyper</button><button type="button" data-mood="wow" aria-pressed="false">Wow</button><button type="button" data-mood="glitch" aria-pressed="false">Glitch</button><button type="button" id="snd" aria-pressed="false">Sound off</button></div><p class="hint">Drag to spin · click to hop · double-click to flip · hold to charge · type to play</p></div>
+</div><div class="cue" aria-hidden="true"></div></section>
+
+<div class="marq" aria-hidden="true"><div class="track"><span>Minimal</span><i>✦</i><span>Fast</span><i>✦</i><span>Private</span><i>✦</i><span>Free AI</span><i>✦</i><span>Hindi and English</span><i>✦</i><span>Emoji</span><i>✦</i><span>Clipboard</span><i>✦</i><span>Minimal</span><i>✦</i><span>Fast</span><i>✦</i><span>Private</span><i>✦</i><span>Free AI</span><i>✦</i><span>Hindi and English</span><i>✦</i><span>Emoji</span><i>✦</i><span>Clipboard</span><i>✦</i></div></div>
+
+<section class="pad" id="features"><div class="wrap">
+  <p class="eyebrow rv">Features</p>
+  <h2 class="rv">Everything you need.<br><em>Nothing you don’t.</em></h2>
+  <div class="grid rv" data-stagger>
+    <div class="card"><span class="n">01</span><h3>Minimal by design</h3><p>Flat matte keys, thin icons and true AMOLED black. Pick from six accent colors, or switch to a light theme.</p></div>
+    <div class="card"><span class="n">02</span><h3>Instant response</h3><p>Keys react the moment you touch them. Hold Backspace and it keeps deleting until you let go.</p></div>
+    <div class="card"><span class="n">03</span><h3>Emoji for everyone</h3><p>Packs for kids, teens, adults and seniors. Scroll through every category or search by name.</p></div>
+    <div class="card"><span class="n">04</span><h3>Clipboard</h3><p>Text you copy is saved automatically, so you can paste it again later with one tap.</p></div>
+    <div class="card"><span class="n">05</span><h3>Number pad and cursor</h3><p>A proper numpad, a comma where you expect it, and a spacebar you can slide to move the cursor.</p></div>
+    <div class="card"><span class="n">06</span><h3>Made to fit</h3><p>Resize keyboard height, key length and key thickness, move it for one hand and set your own haptic strength. Changes reach the keyboard instantly.</p></div>
+    <div class="card"><span class="n">07</span><h3>Voice typing</h3><p>Speak in English or Hindi. Say “send”, “enter” or “bhej” and your message goes. Uses your phone’s speech service.</p></div>
+    <div class="card"><span class="n">08</span><h3>AI assistant</h3><p>Fix, rewrite, translate or reply from the keyboard. Works out of the box, or bring your own free API key.</p></div>
+    <div class="card cs"><span class="n">09</span><h3>AI in WhatsApp</h3><p>Deeper AI help for your chats, built right into Kbrd.</p><span class="soon">Coming soon</span></div>
+  </div>
+</div></section>
+
+<section class="pad" id="ai" style="padding-top:0"><div class="wrap">
+  <p class="eyebrow rv">AI assistant</p>
+  <h2 class="rv">Bring your own key.<br><em>Keep your privacy.</em></h2>
+  <div class="two rv">
+    <div><p class="lead">Start instantly with Kbrd Free, an open-source model that needs no key, or paste your own free API key from Groq, OpenRouter or Google Gemini for more. Kbrd turns your keyboard into a writing assistant that works in every app.</p>
+    <ul class="ticks"><li>Kbrd Free needs no key; your own key is encrypted on your phone</li><li>Text is sent only when you tap an AI action</li><li>Switched off in password fields</li><li>No Kbrd servers in between</li></ul></div>
+    <div class="acts rv" data-stagger aria-label="AI actions"><span>Fix grammar</span><span>Rewrite</span><span>Shorter</span><span>Friendly</span><span>Formal</span><span>To English</span><span>To हिन्दी</span><span>Summarize</span><span>Add emoji</span><span>Reply to copied</span><span>Ask AI</span></div>
+  </div>
+</div></section>
+
+<section class="pad" id="install" style="padding-top:0"><div class="wrap">
+  <p class="eyebrow rv">Install</p>
+  <h2 class="rv">Three steps.<br><em>Under a minute.</em></h2>
+  <ol class="steps">
+    <li class="rv"><b>1</b><p>Download the APK. Android may warn you, because it comes from outside the Play Store.</p></li>
+    <li class="rv"><b>2</b><p>Open the file and allow installs from your browser, then tap Install.</p></li>
+    <li class="rv"><b>3</b><p>Open Kbrd, tap Enable keyboard, turn it on, then choose Kbrd. Allow the microphone for voice typing, and add an AI key under Set up AI if you want the assistant.</p></li>
+  </ol>
+</div></section>
+
+<section class="pad light" id="developer"><div class="wrap dev">
+  <div><p class="eyebrow rv">The developer</p><h2 class="rv">Built by <em>Shaurya.</em></h2></div>
+  <div class="rv">
+    <p>A builder and developer working across web and mobile, with a focus on frontend and full-stack. Founder of LanceBuddy and co-founder of FlowRec. Kbrd is a small project about getting the everyday details of typing right.</p>
+    <div class="chips"><a href="https://github.com/jakadwangdu" target="_blank" rel="noopener">GitHub</a><a href="https://lancebuddy.in" target="_blank" rel="noopener">LanceBuddy</a><a href="https://flowrec.flowrec-dev.workers.dev" target="_blank" rel="noopener">FlowRec</a></div>
+  </div>
+</div></section>
+
+<section class="pad" id="blog"><div class="wrap">
+  <p class="eyebrow rv">From the blog</p>
+  <h2 class="rv">Guides for a<br><em>better keyboard.</em></h2>
+  <div class="posts rv" data-stagger><a href="https://jakadwangdu.github.io/Kbrd/blog/ai-keyboard-android-free-api-key.html"><span class="n" style="margin-bottom:0">Guide</span><h3>How to use AI on your Android keyboard for free</h3><p>Set up an AI assistant inside your Android keyboard with a free API key from Groq, OpenRouter or Google Gemini. A step-by-step guide for Kbrd.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/install-apk-safely-android.html"><span class="n" style="margin-bottom:0">Guide</span><h3>How to install an APK on Android safely</h3><p>A short safety checklist for installing an APK outside the Play Store: where to download, what to allow, what to check, and how to switch the setting off again.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/android-keyboard-tricks-type-faster.html"><span class="n" style="margin-bottom:0">Tips</span><h3>10 Android keyboard tricks to type faster</h3><p>Slide the spacebar, hold to delete, dictate in Hindi or English, use a number pad and more. Ten practical tips to speed up typing on Android.</p></a><a href="https://jakadwangdu.github.io/Kbrd/blog/voice-typing-hindi-english-android.html"><span class="n" style="margin-bottom:0">Guide</span><h3>Voice typing in Hindi and English on Android</h3><p>How to dictate messages in Hindi and English on Android, say send to send them, and fix common voice typing problems.</p></a></div>
+  <p class="fine rv"><a href="https://jakadwangdu.github.io/Kbrd/blog/">Read all articles</a></p>
+</div></section>
+<section class="pad" id="faq" style="padding-top:0"><div class="wrap">
+  <p class="eyebrow rv">FAQ</p>
+  <h2 class="rv">Questions,<br><em>answered.</em></h2>
+  <div class="rv"><details><summary>What is Kbrd?</summary><p>Kbrd is a minimalist Android keyboard with a full emoji library, a clipboard, a number pad, voice typing in English and Hindi, adjustable size and haptics, and an optional AI assistant.</p></details><details><summary>Is Kbrd free?</summary><p>Yes. Kbrd is free to download as an APK from the official GitHub releases page.</p></details><details><summary>How does the AI assistant work?</summary><p>Kbrd Free works out of the box with an open-source model hosted by OVHcloud, with no key. You can also paste your own API key from a provider such as Groq, OpenRouter or Google Gemini. When you tap an AI action, Kbrd sends only the selected text or the text before your cursor to the service and shows you the result before replacing anything.</p></details><details><summary>Which AI models can I use?</summary><p>The built-in Kbrd Free option uses an open-source model and allows about 2 requests a minute. With your own key you can use any model from an OpenAI-compatible provider, including free tiers and open-source models on Groq, OpenRouter and Together.</p></details><details><summary>Is my typing private?</summary><p>Kbrd has no servers and no analytics. It goes online only when you tap an AI action, never runs in password fields, and stores your API key encrypted with the Android Keystore.</p></details><details><summary>How do I install the APK?</summary><p>Download Kbrd-debug.apk, allow installs from your browser when Android asks, open the file, then open Kbrd and follow the two setup steps to enable and switch to the keyboard.</p></details><details><summary>Does Kbrd support Hindi voice typing?</summary><p>Yes. Choose हिन्दी in the voice panel, allow the microphone and speak. Saying “send” or “bhej” sends your message. Voice recognition uses your phone’s own speech service.</p></details></div>
+</div></section>
+
+<section class="cta" id="download"><div class="wrap">
+  <div class="stage" data-char="cta" aria-hidden="true"></div>
+  <h2 class="rv">Get <em>Kbrd.</em></h2>
+  <div class="row rv">
+    <a class="btn p" href="https://github.com/jakadwangdu/Kbrd/releases/latest/download/Kbrd-debug.apk" target="_blank" rel="noopener">Download APK
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg></a>
+    <a class="btn g" href="https://github.com/jakadwangdu/Kbrd/releases" target="_blank" rel="noopener">All releases</a>
+  </div>
+  <p class="fine rv">This is a debug build for Android 8.0+. Kbrd goes online only when you tap an AI action, using the key you add. The microphone is only needed for voice typing.</p>
+  <p class="fine rv">Coming soon: AI features for WhatsApp.</p>
+</div></section>
+
+<footer><div class="wrap"><span>© 2026 Shaurya</span><span><a href="https://jakadwangdu.github.io/Kbrd/blog/">Blog</a> · <a href="https://jakadwangdu.github.io/Kbrd/privacy.html">Privacy</a> · <a href="https://github.com/jakadwangdu/Kbrd" target="_blank" rel="noopener">GitHub</a></span></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(()=>{
+const nav=document.querySelector("nav"),onS=()=>nav.classList.toggle("s",scrollY>20);
+addEventListener("scroll",onS,{passive:true});onS();
+const bar=document.getElementById("bar"),rt=document.documentElement;let mx=0,my=0,pend=false;
+const upd=()=>{pend=false;rt.style.setProperty("--mx",mx+"px");rt.style.setProperty("--my",my+"px")};
+addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY;if(!pend){pend=true;requestAnimationFrame(upd)}},{passive:true});
+const prog=()=>{bar.style.transform="scaleX("+scrollY/Math.max(1,rt.scrollHeight-innerHeight)+")"};addEventListener("scroll",prog,{passive:true});prog();
+if(window.Lenis&&!matchMedia("(prefers-reduced-motion:reduce)").matches){const L=new Lenis({lerp:.1});rt.classList.add("lenis");const raf=t=>{L.raf(t);requestAnimationFrame(raf)};requestAnimationFrame(raf);document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",e=>{const el=document.querySelector(a.getAttribute("href"));if(el){e.preventDefault();L.scrollTo(el,{offset:-72})}}))}
+const rv=[...document.querySelectorAll(".rv")];
+if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");stag(e.target);io.unobserve(e.target)}}),{threshold:.12});rv.forEach(e=>io.observe(e))}else rv.forEach(e=>e.classList.add("in"));
+
+const mm=q=>window.matchMedia?matchMedia(q).matches:false,rmo=mm("(prefers-reduced-motion:reduce)"),hasA=!!window.anime&&!rmo;
+if(!hasA||!("IntersectionObserver" in window))rt.classList.remove("anim");
+function stag(el){if(el.dataset.stagger===undefined||!hasA)return;anime({targets:el.children,opacity:[0,1],translateY:[26,0],delay:anime.stagger(70),duration:900,easing:"easeOutExpo",complete:a=>{for(const t of a.animatables)t.target.style.transform=""}})}
+if(hasA){anime.timeline({easing:"easeOutExpo"}).add({targets:".ln .up",translateY:["110%","0%"],duration:1100,delay:anime.stagger(140,{start:150})})}
+if(!rmo&&mm("(hover:hover)")){
+  document.querySelectorAll(".nomag").forEach(b=>{b.addEventListener("pointermove",e=>{const r=b.getBoundingClientRect();b.style.transform="translate("+(e.clientX-r.left-r.width/2)*.22+"px,"+(e.clientY-r.top-r.height/2)*.32+"px)"});b.addEventListener("pointerleave",()=>{b.style.transform=""})});
+  document.querySelectorAll(".card,.posts a").forEach(c=>c.addEventListener("pointermove",e=>{const r=c.getBoundingClientRect();c.style.setProperty("--cx",e.clientX-r.left+"px");c.style.setProperty("--cy",e.clientY-r.top+"px")}));
+}
+/*THEME*/
+const tbs=[...document.querySelectorAll("[data-theme-set]")];
+const pref=()=>{try{return localStorage.getItem("kbrd-theme")||"system"}catch(e){return"system"}};
+const markT=()=>{const p=pref();tbs.forEach(b=>b.setAttribute("aria-pressed",b.dataset.themeSet===p))};
+function setTheme(v){rt.classList.add("tt");setTimeout(()=>rt.classList.remove("tt"),500);try{if(v==="system")localStorage.removeItem("kbrd-theme");else localStorage.setItem("kbrd-theme",v)}catch(e){}if(v==="system")rt.removeAttribute("data-theme");else rt.dataset.theme=v;markT()}
+tbs.forEach(b=>b.addEventListener("click",()=>setTheme(b.dataset.themeSet)));markT();
+
+/*3D*/
+const canvas=document.getElementById("gl");let R=null;
+try{R=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:"high-performance"})}catch(e){R=null}
+if(!R){rt.classList.add("nogl");return}
+const rm=rmo,cl=(v,a,b)=>Math.max(a,Math.min(b,v)),isD=()=>rt.dataset.theme?rt.dataset.theme==="dark":mm("(prefers-color-scheme:dark)");
+const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(35,1,.1,50);cam.position.z=8;
+scene.add(new THREE.HemisphereLight(0xffffff,0x222222,.85));
+const kl=new THREE.DirectionalLight(0xffffff,1.1);kl.position.set(3,4,5);scene.add(kl);
+const rl=new THREE.DirectionalLight(0xffffff,.8);rl.position.set(-4,2,-3);scene.add(rl);
+const mBody=new THREE.MeshStandardMaterial({roughness:.38,metalness:.05}),mFace=new THREE.MeshBasicMaterial(),mGlow=new THREE.MeshBasicMaterial();
+function rr(w,h,r){const s=new THREE.Shape(),x=-w/2,y=-h/2;s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s}
+function rbox(w,h,d,r,b,mat){const g=new THREE.ExtrudeGeometry(rr(w,h,r),{depth:d,bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:4,curveSegments:10});g.center();return new THREE.Mesh(g,mat)}
+const keyTex=[],freeTex={};
+const mkTex=ch=>{const c=document.createElement("canvas");c.width=c.height=128;return{ch,c,t:new THREE.CanvasTexture(c)}};
+function paint(o,ink){const x=o.c.getContext("2d");x.clearRect(0,0,128,128);x.fillStyle=ink;x.font="600 84px Inter,system-ui,sans-serif";x.textAlign="center";x.textBaseline="middle";x.fillText(o.ch,64,70);o.t.needsUpdate=true}
+
+const G=new THREE.Group(),F=.52;
+G.add(rbox(1.7,1.55,.8,.42,.12,mBody));
+const face=new THREE.Mesh(new THREE.ShapeGeometry(rr(1.28,.86,.3)),mFace);face.position.set(0,.02,F+.005);G.add(face);
+const eg=new THREE.SphereGeometry(.1,24,16),eyes=[-.3,.3].map(x=>{const e=new THREE.Mesh(eg,mGlow);e.scale.set(1,1.5,.35);e.position.set(x,.1,F+.03);G.add(e);return e});
+const mouth=new THREE.Mesh(new THREE.TorusGeometry(.13,.022,8,24,Math.PI),mGlow);mouth.rotation.z=Math.PI;mouth.position.set(0,-.08,F+.02);G.add(mouth);
+const ring=new THREE.Mesh(new THREE.TorusGeometry(.09,.026,8,24),mGlow);ring.position.set(0,-.14,F+.02);ring.visible=false;G.add(ring);
+const ag=new THREE.SphereGeometry(.2,24,16),arms=[-1,1].map(s=>{const a=new THREE.Mesh(ag,mBody);a.position.set(s*1.08,-.15,.05);G.add(a);return a});
+const feet=[-.4,.4].map(x=>{const b=rbox(.5,.22,.5,.09,.04,mBody);b.position.set(x,-.95,.05);G.add(b);return b});
+const ant=new THREE.Group();ant.position.set(0,.88,0);
+const stem=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,.38,10),mBody);stem.position.y=.19;ant.add(stem);
+const tip=new THREE.Mesh(new THREE.SphereGeometry(.085,16,12),new THREE.MeshBasicMaterial({color:0xFFD60A}));tip.position.y=.42;ant.add(tip);G.add(ant);
+const keyG=[..."KBRD"].map((ch,i)=>{const k=new THREE.Group(),o=mkTex(ch);keyTex.push(o);k.add(rbox(.44,.44,.16,.1,.035,mBody));
+  const l=new THREE.Mesh(new THREE.PlaneGeometry(.34,.34),new THREE.MeshBasicMaterial({map:o.t,transparent:true}));l.position.z=.12;k.add(l);
+  k.userData={ch,a:i/4*Math.PI*2,r:1.85+(i%2)*.3,y:(i%3-1)*.55,h:0,pop:0};G.add(k);return k});
+G.visible=false;scene.add(G);
+
+const pn=140,pa=new Float32Array(pn*3);for(let i=0;i<pn;i++){pa[i*3]=(Math.random()-.5)*14;pa[i*3+1]=(Math.random()-.5)*8;pa[i*3+2]=(Math.random()-.5)*6-1}
+const pg=new THREE.BufferGeometry();pg.setAttribute("position",new THREE.BufferAttribute(pa,3));
+const pm=new THREE.PointsMaterial({size:.035,transparent:true,opacity:.45,depthWrite:false}),pts=new THREE.Points(pg,pm);scene.add(pts);
+const bursts=[],bgm=new THREE.BoxGeometry(.16,.16,.1);let bi=0;
+for(let i=0;i<42;i++){const m=new THREE.Mesh(bgm,mBody);m.visible=false;scene.add(m);bursts.push({m,v:new THREE.Vector3(),w:new THREE.Vector3(),life:0})}
+const sprites=[];let si=0;
+for(let i=0;i<20;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({transparent:true,opacity:0,depthWrite:false}));s.visible=false;scene.add(s);sprites.push({s,life:0,v:new THREE.Vector3()})}
+const wave=new THREE.Mesh(new THREE.RingGeometry(.9,1,48),new THREE.MeshBasicMaterial({transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));wave.visible=false;scene.add(wave);
+function applyPal(){const d=isD();mBody.color.setHex(d?0xf2f2f2:0x141414);mFace.color.setHex(d?0x050505:0xf4f4f2);mGlow.color.setHex(d?0xffffff:0x0a0a0a);pm.color.setHex(d?0xffffff:0x000000);
+  keyTex.forEach(o=>paint(o,d?"#0a0a0a":"#f4f4f2"));Object.values(freeTex).forEach(o=>paint(o,d?"#ffffff":"#0a0a0a"))}
+applyPal();
+try{new MutationObserver(applyPal).observe(rt,{attributes:true,attributeFilter:["data-theme"]});if(window.matchMedia)matchMedia("(prefers-color-scheme:dark)").addEventListener("change",applyPal)}catch(e){}
+
+const st={x:0,y:0,s:0,tx:0,ty:0,ts:0,first:true,hop:0,vy:0,squash:0,flip:0,fv:0,ry:0,rx:0,ry2:0,sp:0,charge:0,blink:0,nb:2,px:null,py:null,party:0,nudge:0,act:performance.now(),pt:0};
+const MOODS={happy:{ey:1.5,ex:1,sm:1,ring:0,orb:1,bob:1},sleepy:{ey:.08,ex:1.1,sm:.5,ring:0,orb:.25,bob:.4},hyper:{ey:1.9,ex:1.15,sm:1.7,ring:0,orb:3.2,bob:2.2},wow:{ey:2.1,ex:1.25,sm:0,ring:1,orb:1.2,bob:1},glitch:{ey:1.5,ex:1,sm:1,ring:0,orb:2,bob:1}};
+const cur={ey:1.5,ex:1,sm:1,ring:0,orb:1,bob:1};let mood="happy",autoSleep=false,nextZ=0,nextHop=0,partyT=0;
+let ac=null,snd=false;
+function beep(f,d,t){if(!snd)return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=t||"square";o.frequency.value=f;g.gain.setValueAtTime(.05,ac.currentTime);g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
+const hopNow=p=>{st.vy=5.5*p;st.squash=.25};
+function burst(n,power){for(let i=0;i<n;i++){const b=bursts[bi++%bursts.length],a=Math.random()*Math.PI*2,u=Math.random()*.9+.1;b.m.position.copy(G.position);b.m.position.y+=.2*st.s;b.v.set(Math.cos(a)*u*power,Math.random()*power*.9+power*.4,Math.sin(a)*u*power*.6);b.w.set(Math.random()*8-4,Math.random()*8-4,Math.random()*8-4);b.life=1.1+Math.random()*.5;b.m.visible=true;b.m.scale.setScalar(st.s*(.7+Math.random()*.8))}}
+function spawnLetter(ch){const o=freeTex[ch]||(freeTex[ch]=mkTex(ch));if(!o.done){paint(o,isD()?"#ffffff":"#0a0a0a");o.done=true}
+  const e=sprites[si++%sprites.length];e.s.material.map=o.t;e.s.material.opacity=1;e.s.material.needsUpdate=true;e.s.position.copy(G.position);e.s.position.x+=(Math.random()-.5)*1.4*st.s;e.s.position.y+=.9*st.s;e.s.scale.setScalar(.55*Math.max(.5,st.s));e.v.set((Math.random()-.5)*.6,1.1+Math.random(),0);e.life=1.4;e.s.visible=true}
+function shock(){wave.position.copy(G.position);wave.userData.t=0;wave.visible=true}
+const party=()=>{partyT=3.2;st.party=3.2;burst(30,5*st.s);[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.12),i*90))};
+const hud=document.querySelectorAll("[data-mood]");
+function setMood(m){mood=m;hud.forEach(b=>b.setAttribute("aria-pressed",b.dataset.mood===m));if(m!=="glitch")applyPal();if(m==="wow"||m==="hyper"){hopNow(.7);burst(8,3*st.s)}beep(m==="sleepy"?180:520,.1)}
+hud.forEach(b=>b.addEventListener("click",()=>{autoSleep=false;setMood(b.dataset.mood)}));
+const sb=document.getElementById("snd");if(sb)sb.addEventListener("click",()=>{snd=!snd;sb.setAttribute("aria-pressed",snd);sb.textContent=snd?"Sound on":"Sound off";beep(440,.08)});
+
+const anchors=[...document.querySelectorAll("[data-char]")],vis=2*Math.tan(THREE.MathUtils.degToRad(cam.fov/2))*cam.position.z,tmp=new THREE.Vector3(),ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
+function size(){R.setPixelRatio(Math.min(devicePixelRatio||1,2));R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()}
+size();addEventListener("resize",size);
+const hits=(x,y)=>{ndc.set(x/innerWidth*2-1,-(y/innerHeight*2-1));ray.setFromCamera(ndc,cam);return ray.intersectObject(G,true)};
+const inG=(o,g)=>{while(o){if(o===g)return true;o=o.parent}return false};
+const wake=()=>{st.act=performance.now();if(autoSleep){autoSleep=false;setMood("happy")}};
+let down=null,lastClick=0,lastX=0,hoverK=null,typed="";
+addEventListener("pointermove",e=>{st.px=e.clientX;st.py=e.clientY;wake();
+  if(down){const dx=e.clientX-lastX;lastX=e.clientX;if(Math.abs(e.clientX-down.x)>6)down.moved=true;st.sp=dx*.012;st.ry2+=dx*.012}
+  else if(G.visible&&!rm){const h=hits(e.clientX,e.clientY);hoverK=h.length?keyG.find(k=>inG(h[0].object,k))||null:null}},{passive:true});
+addEventListener("pointerdown",e=>{wake();if(!G.visible||rm)return;const h=hits(e.clientX,e.clientY);if(!h.length)return;down={x:e.clientX,t:performance.now(),moved:false,key:keyG.find(k=>inG(h[0].object,k))||null};lastX=e.clientX});
+addEventListener("pointerup",()=>{if(!down)return;const d=down;down=null;const dt=performance.now()-d.t;if(d.moved)return;
+  if(d.key){d.key.userData.pop=1;spawnLetter(d.key.userData.ch);beep(660,.06);burst(6,3.2*st.s);return}
+  if(dt>450){const p=Math.min(1,dt/1400);shock();burst(26+Math.round(p*16),(4+p*5)*st.s);hopNow(.8+p);beep(120,.25,"sawtooth");st.charge=0;return}
+  const n=performance.now();if(n-lastClick<330){st.fv=14;hopNow(1.1);beep(520,.12);lastClick=0}else{hopNow(.8);burst(10,3.4*st.s);beep(300,.08);lastClick=n}});
+addEventListener("pointercancel",()=>{down=null});
+addEventListener("keydown",e=>{if(e.ctrlKey||e.metaKey||e.altKey||!G.visible||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+  const k=e.key.length===1?e.key.toLowerCase():"";if(!/[a-z]/.test(k))return;wake();spawnLetter(k);st.blink=1;st.nudge=1;beep(400+Math.random()*300,.04);
+  typed=(typed+k).slice(-4);if(typed==="kbrd")party();if(mood==="sleepy")setMood("happy")});
+function pick(){let b=null,bv=40;for(const a of anchors){const r=a.getBoundingClientRect(),v=Math.min(r.bottom,innerHeight)-Math.max(r.top,0);if(v>bv){bv=v;b=r}}return b}
+let last=0,wasVis=false;
+function frame(t){
+  requestAnimationFrame(frame);const time=t/1000,dt=Math.min(.05,Math.max(.001,time-last));last=time;
+  const r=pick();
+  if(r){tmp.set((r.left+r.width/2)/innerWidth*2-1,-((r.top+r.height/2)/innerHeight*2-1),.5).unproject(cam).sub(cam.position).normalize();tmp.multiplyScalar(-cam.position.z/tmp.z).add(cam.position);
+    st.tx=tmp.x;st.ty=tmp.y;st.ts=Math.min(r.height/innerHeight*vis/3.1,r.width/innerWidth*vis*(innerWidth/innerHeight)/3.6)}else st.ts=0;
+  const k=st.first?1:1-Math.exp(-5*dt);if(r)st.first=false;
+  st.x+=(st.tx-st.x)*k;st.y+=(st.ty-st.y)*k;st.s+=(st.ts-st.s)*k;
+  const on=st.s>.02;if(on!==wasVis){scene.visible=on;if(!on)R.render(scene,cam);wasVis=on}
+  G.visible=on;if(!on)return;
+  if(performance.now()-st.act>9000&&mood==="happy"){autoSleep=true;setMood("sleepy")}
+  const m=MOODS[mood],km=1-Math.exp(-6*dt);for(const q in m)cur[q]+=(m[q]-cur[q])*km;
+  st.vy-=18*dt;st.hop+=st.vy*dt;if(st.hop<0){if(st.vy<-3)st.squash=.3;st.hop=0;st.vy=0}
+  st.squash*=Math.max(0,1-dt*8);st.nudge*=Math.max(0,1-dt*5);
+  if(st.fv>0){st.flip+=st.fv*dt;if(st.flip>=Math.PI*2){st.flip=0;st.fv=0}}
+  st.charge=(down&&!down.moved&&!down.key)?Math.min(1,(performance.now()-down.t)/1400):st.charge*Math.max(0,1-dt*6);
+  if(mood==="hyper"&&time>nextHop){hopNow(.7);nextHop=time+1.1}
+  if(mood==="sleepy"&&time>nextZ){spawnLetter("z");nextZ=time+1.3}
+  if(partyT>0){partyT-=dt;st.ry2+=dt*7;if(time>st.pt){st.pt=time+.28;burst(4,3.5*st.s);if(st.hop===0)hopNow(.6)}}
+  const bob=rm?0:Math.sin(time*1.4)*.07*cur.bob,shake=Math.sin(time*70)*.035*st.charge;
+  const sy=1-st.squash*.5+Math.min(.22,Math.abs(st.vy)*.018)+st.charge*.05,sx=1+st.squash*.35-st.charge*.04;
+  G.scale.set(st.s*sx,st.s*sy,st.s);
+  G.position.set(st.x+(shake+(mood==="glitch"&&Math.random()<.08?(Math.random()-.5)*.25:0))*st.s,st.y+(bob+st.hop)*st.s,0);
+  const pv=tmp.copy(G.position).project(cam),cx=(pv.x+1)/2*innerWidth,cy=(1-pv.y)/2*innerHeight;
+  let lx,ly;if(st.px===null){lx=Math.sin(time*.7)*.45;ly=Math.cos(time*.5)*.2}else{lx=cl((st.px-cx)/(innerWidth*.35),-1,1);ly=cl((st.py-cy)/(innerHeight*.35),-1,1)}
+  if(mood==="sleepy"){lx*=.2;ly=.5}
+  const k2=1-Math.exp(-8*dt);st.ry+=(lx*.6-st.ry)*k2;st.rx+=(ly*.32-st.rx)*k2;
+  st.ry2+=st.sp;st.sp*=Math.pow(.02,dt);
+  if(!down&&partyT<=0){const tg=Math.round(st.ry2/(Math.PI*2))*Math.PI*2;st.ry2+=(tg-st.ry2)*(1-Math.exp(-2.5*dt))}
+  G.rotation.set(st.rx+st.flip,st.ry+st.ry2,Math.sin(time*2)*.02*cur.bob);
+  st.nb-=dt;if(st.nb<0){st.blink=1;st.nb=2.5+Math.random()*3}st.blink=Math.max(0,st.blink-dt*6);
+  const bs=mood==="sleepy"?1:1-Math.sin(Math.min(1,st.blink)*Math.PI)*.9;
+  eyes.forEach((e,i)=>{e.position.x=(i?.3:-.3)+lx*.08;e.position.y=.1-ly*.05;e.scale.set(cur.ex,cur.ey*bs*(1+st.charge*.5),.35)});
+  mouth.visible=cur.ring<.5&&cur.sm>.05;mouth.scale.set(cur.sm+st.nudge*.4,cur.sm*(mood==="sleepy"?.4:1)+st.nudge*.5,1);
+  ring.visible=cur.ring>.5;ring.scale.setScalar(1+Math.sin(time*6)*.08);
+  arms.forEach((a,i)=>{a.position.y=-.15+(rm?0:Math.sin(time*2+i*2)*.06*cur.bob)+st.hop*.4+(mood==="wow"?.35:0)});
+  feet.forEach((f,i)=>{f.position.y=-.95+Math.min(.25,st.hop*.4)+(rm?0:Math.sin(time*5+i*3)*.02*cur.bob)});
+  ant.rotation.z=Math.sin(time*3)*.15*(1+cur.bob)+st.sp*2;ant.rotation.x=Math.sin(time*2.3)*.1;tip.scale.setScalar(1+Math.sin(time*5)*.2*cur.orb);
+  if(mood==="glitch"&&Math.random()<.08){const d=isD(),inv=Math.random()<.5;mFace.color.setHex(inv?(d?0xf4f4f4:0x050505):(d?0x050505:0xf4f4f2))}
+  keyG.forEach((kg,i)=>{const d=kg.userData;d.a+=dt*(rm?.05:.35*cur.orb+(partyT>0?2.5:0));d.h+=((hoverK===kg?1:0)-d.h)*Math.min(1,dt*10);d.pop=Math.max(0,d.pop-dt*3);
+    kg.scale.setScalar(1+d.h*.35+d.pop*.6);kg.position.set(Math.cos(d.a)*d.r*(1+cur.orb*.03),d.y+(rm?0:Math.sin(time*1.2+i)*.1)+d.pop*.3,Math.sin(d.a)*d.r*.55);
+    kg.rotation.set(Math.sin(time*.8+i)*.3,Math.cos(time*.6+i)*.4,Math.sin(time*.5+i)*.2)});
+  const gs=9*Math.max(.35,st.s);
+  for(const b of bursts){if(b.life<=0)continue;b.life-=dt;b.m.position.addScaledVector(b.v,dt);b.v.y-=gs*dt;b.m.rotation.x+=b.w.x*dt;b.m.rotation.y+=b.w.y*dt;b.m.scale.multiplyScalar(1-dt*.4);if(b.life<=0)b.m.visible=false}
+  for(const e of sprites){if(e.life<=0)continue;e.life-=dt;e.s.position.addScaledVector(e.v,dt*Math.max(.4,st.s));e.s.material.opacity=Math.max(0,e.life/1.4);if(e.life<=0)e.s.visible=false}
+  if(wave.visible){const w=(wave.userData.t+=dt);wave.scale.setScalar(st.s*(1+w*5));wave.material.opacity=Math.max(0,.6-w*.9);wave.material.color.setHex(isD()?0xffffff:0x000000);if(w>.7)wave.visible=false}
+  pts.rotation.y=time*.03+st.ry*.15;pts.rotation.x=st.rx*.1;
+  if(window.__KBRD_TEST)window.__kbrd={st,mood:()=>mood,active:()=>bursts.filter(b=>b.life>0).length,sprites:()=>sprites.filter(e=>e.life>0).length,vis:()=>G.visible};
+  R.render(scene,cam)
+}
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
